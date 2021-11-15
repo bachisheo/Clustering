@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Numerics;
 using System.Text;
+using System.Windows.Forms;
+using Clustering.Objects;
 
 namespace Clustering.Clusterizators.Hierarchy
 {
     class HierarchyComposite : IHierarchyComponent
     {
         private IHierarchyComponent leftChild, rightChild, parent;
-
         public void SetChildren(IHierarchyComponent leftChildItem, IHierarchyComponent rightChildItem)
         {
             leftChild = leftChildItem;
@@ -29,13 +30,18 @@ namespace Clustering.Clusterizators.Hierarchy
         public IHierarchyComponent GetParent() => parent;
         public void SetParent(IHierarchyComponent parentItem) => parent = parentItem;
 
-
-        public HierarchyIterator CreateIterator()
+        public List<CleanObject> GetItems()
         {
-            HierarchyIterator it = new HierarchyIterator(this);
-            return it;
+            var obj = new List<CleanObject>();
+            if (leftChild != null)
+                obj.AddRange(leftChild.GetItems());
+            if (rightChild != null)
+                obj.AddRange(rightChild.GetItems());
+            return obj;
         }
-        public string Info() => "I'm composite T.T ";
+
+
+        public string Info() => "Composite";
 
     }
 }
