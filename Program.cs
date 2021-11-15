@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -52,7 +53,9 @@ namespace Clustering
             component.Add(root);
             component.Add(left);
             component.Add(leftLeft);
+            StreamWriter sw = new StreamWriter("..\\..\\..\\result.txt", false, System.Text.Encoding.UTF8);
             Console.WriteLine("Get data from all components:");
+            sw.WriteLine("Get data from all components:");
 
             foreach (var comp in component)
             {
@@ -62,9 +65,10 @@ namespace Clustering
                     s += obj.Data[0] + " ";
                 }
                 Console.WriteLine(comp.Info() + ", Data:" + s);
+                sw.WriteLine(comp.Info() + ", Data:" + s);
 
             }
-
+            sw.Close();
         }
 
  

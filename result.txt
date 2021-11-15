@@ -1,0 +1,11 @@
+﻿Get data from all components:
+Leaf, Data:1 
+Leaf, Data:2 
+Leaf, Data:3 
+Leaf, Data:4 
+Leaf, Data:5 
+Leaf, Data:6 
+Leaf, Data:7 
+Composite, Data:2 3 1 4 5 
+Composite, Data:2 3 1 
+Composite, Data:2 3 
