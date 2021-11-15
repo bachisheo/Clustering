@@ -20,6 +20,10 @@ namespace Clustering.Clusterizators
             KMeansAlglib clusterizer = new KMeansAlglib();
             var report = clusterizer.clusterizerrunkmeans(data);
             var clusters = new List<Cluster>(report.k);
+            for (int i = 0; i < clusters.Capacity; i++)
+            {
+                clusters.Add(new Cluster());
+            }
             for (int i = 0; i < report.cidx.Length; i++)
             {
                 clusters[report.cidx[i]].Add(objects[i]);

@@ -7,9 +7,9 @@ namespace Clustering.Objects
 {
     public class Cluster
     {
-        private List<CleanObject> objects;
+        private List<CleanObject> objects = new List<CleanObject>();
 
-        public List<CleanObject> Get => objects;
+        public List<CleanObject> Objects => objects;
 
         public void Add(CleanObject obj)
         {
