@@ -35,7 +35,7 @@ namespace Clustering.Clusterizators.Hierarchy
             HierarchyIterator it = new HierarchyIterator(this);
             return it;
         }
-        public string Info() => "I'm composite T.T ";
+        public string Info() => "I'm composite";
 
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -50,29 +51,30 @@ namespace Clustering
             {
                 composite[i].SetChildren(component[leafIt++], component[leafIt++]);
             }
-
-            Console.WriteLine("\nIterate from leaf:");
+            StreamWriter sw = new StreamWriter("..\\..\\..\\result.txt", false, System.Text.Encoding.UTF8);
+            sw.WriteLine("\nIterate from leaf:");
             HierarchyIterator it = component[0].CreateIterator();
             while (it.HasNext())
             {
-                Console.WriteLine(it.GetNext().Info());
+                sw.WriteLine(it.GetNext().Info());
             }
 
-            Console.WriteLine("\nIterate from root:");
+            sw.WriteLine("\nIterate from root:");
             it = composite[0].CreateIterator();
             while (it.HasNext())
             {
-                Console.WriteLine(it.GetNext().Info());
+                sw.WriteLine(it.GetNext().Info());
             }
 
 
-            Console.WriteLine("\nIterate from node:");
+            sw.WriteLine("\nIterate from node:");
             it = composite[^1].CreateIterator();
 
             while (it.HasNext())
             {
-                Console.WriteLine(it.GetNext().Info());
+                sw.WriteLine(it.GetNext().Info());
             }
+            sw.Close();
         }
 
         static void TestTree()

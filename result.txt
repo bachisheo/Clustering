@@ -1,0 +1,16 @@
+﻿
+Iterate from leaf:
+I'm leaf, data: 1
+
+Iterate from root:
+I'm leaf, data: 6
+I'm leaf, data: 7
+I'm leaf, data: 1
+I'm leaf, data: 2
+I'm leaf, data: 3
+I'm leaf, data: 4
+I'm leaf, data: 5
+
+Iterate from node:
+I'm leaf, data: 6
+I'm leaf, data: 7
