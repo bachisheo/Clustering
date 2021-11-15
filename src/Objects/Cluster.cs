@@ -5,7 +5,7 @@ using Clustering.Objects;
 
 namespace Clustering.Objects
 {
-    class Cluster
+    public class Cluster
     {
         private List<CleanObject> objects;
 
