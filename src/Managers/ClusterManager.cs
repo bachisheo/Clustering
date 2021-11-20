@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Clustering.Objects;
+using Clustering.Clusterizators;
 
-namespace Clustering.src.Managers
+namespace Clustering
 {
     class ClusterManager
     {
         private List<CleanObject> objects;
         private List<Cluster> clusters;
-
+        private IClusterizer clusterizer;
     }
 }
