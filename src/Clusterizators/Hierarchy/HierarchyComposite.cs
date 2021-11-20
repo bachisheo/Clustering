@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.Numerics;
 using System.Text;
-using System.Windows.Forms;
-using Clustering.Objects;
 
 namespace Clustering.Clusterizators.Hierarchy
 {
     class HierarchyComposite : IHierarchyComponent
     {
         private IHierarchyComponent leftChild, rightChild, parent;
+
         public void SetChildren(IHierarchyComponent leftChildItem, IHierarchyComponent rightChildItem)
         {
             leftChild = leftChildItem;

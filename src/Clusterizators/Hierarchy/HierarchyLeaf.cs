@@ -24,13 +24,11 @@ namespace Clustering.Clusterizators.Hierarchy
 
         public void SetParent(IHierarchyComponent parent) => this.parent = parent;
 
-        public string Info() => "Leaf";
+        public string Info() => "I'm leaf, data: " + baseObj.Data[0];
 
-        public List<CleanObject> GetItems()
+        public HierarchyIterator CreateIterator()
         {
-            var obj = new List<CleanObject>();
-            obj.Add(baseObj);
-            return obj;
+            return new HierarchyIterator(this);
         }
     }
 }

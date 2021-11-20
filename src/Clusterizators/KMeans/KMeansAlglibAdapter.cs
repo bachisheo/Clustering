@@ -6,7 +6,7 @@ using Clustering.Objects;
 
 namespace Clustering.Clusterizators
 {
-    class KMeansAlglibAdapter : KMeansClusterizator
+    class KMeansAlglibAdapter : IClusterizator
     {
         public List<Cluster> Clustering(List<CleanObject> objects)
         {

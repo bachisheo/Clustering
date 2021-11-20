@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Clustering.Objects;
 
 namespace Clustering.Clusterizators.Hierarchy
 {
@@ -10,8 +9,8 @@ namespace Clustering.Clusterizators.Hierarchy
         public IHierarchyComponent GetRightChild();
         public IHierarchyComponent GetParent();
         public void SetParent(IHierarchyComponent parent);
-        List<CleanObject> GetItems();
         public string Info();
+        public HierarchyIterator CreateIterator();
 
     }
 }
