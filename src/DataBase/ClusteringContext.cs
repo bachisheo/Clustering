@@ -63,7 +63,7 @@ namespace Clustering.DataBase
                 .UseSqlite($"Data Source={DbPath}");
     }
 
-    public static class DBSetExtention
+    public static class DbSetExtention
     {
         public static void Clear<T>(this DbSet<T> set) where T : class
         {
