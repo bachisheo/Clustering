@@ -11,7 +11,6 @@ namespace Clustering.Objects
         public string Name { get; set; }
         public virtual ClusteringResult Result { get; set; }
         public virtual List<CleanObject> CleanObjects { get; } = new List<CleanObject>();
-
         public void Add(CleanObject obj)
         {
             CleanObjects.Add(obj);

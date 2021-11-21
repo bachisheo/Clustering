@@ -5,7 +5,7 @@ namespace Clustering.Clusterizators.Hierarchy
 {
     public class HierarchyClusterizer: IClusterizer
     {
-        public List<Cluster> Clustering(List<CleanObject> objects)
+        public ClusteringResult Clustering(CleanSet set)
         {
             throw new System.NotImplementedException();
         }
