@@ -50,6 +50,7 @@ namespace Clustering.DataBase
         // special "local" folder for your platform.
         protected override void OnConfiguring(DbContextOptionsBuilder options)
             => options
+                .UseLazyLoadingProxies()
                 .UseSqlite($"Data Source={DbPath}");
     }
 
