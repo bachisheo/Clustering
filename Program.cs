@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography.Xml;
@@ -11,6 +12,7 @@ using Clustering.Clusterizators;
 using Clustering.DataBase;
 using Clustering.Objects;
 using Clustering.src.Charts;
+using Microsoft.EntityFrameworkCore;
 using OxyPlot;
 using Console = System.Console;
 
@@ -34,17 +36,14 @@ namespace Clustering
         static void Main()
         {
             ClusteringContext db = new ClusteringContext();
-            DataSource ds = new DataSource
+          
+            var res = db.RawSets.First(e => e.RawObjects.Count == 5);
+          
+            foreach (var obj in res.RawObjects)
             {
-                SourceName = "DataSet_01"
-            };
-            ds.RawObjects.Add(new RawObject{ObjData = new double[]{1, 0}});
-            ds.RawObjects.Add(new RawObject{ObjData = new double[]{50, 80}});
-            ds.RawObjects.Add(new RawObject{ObjData = new double[]{3, 4}});
-            ds.RawObjects.Add(new RawObject{ObjData = new double[]{2, 6}});
-            ds.RawObjects.Add(new RawObject{ObjData = new double[]{90, 60}});
-            db.DataSources.Add(ds);
-            db.SaveChanges();
+                Console.WriteLine(obj.ObjData[0]);
+
+            }
         }
 
     }

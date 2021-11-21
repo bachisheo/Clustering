@@ -8,8 +8,9 @@ namespace Clustering.Objects
         public int CleanObjectId {get; set; }
         
         public double [] ObjData { get; set; }
-        public RawObject RawObject { get; set; }
-        public List<Cluster> Clusters { get; } = new List<Cluster>();
+        public virtual RawObject RawObject { get; set; }
+        public virtual CleanSet CleanSet { get; set; }
+        public virtual List<Cluster> Clusters { get; } = new List<Cluster>();
 
     }
 }

@@ -7,10 +7,10 @@ namespace Clustering.Objects
 {
     public class Cluster
     {
-        public List<CleanObject> CleanObjects { get; } = new List<CleanObject>();
         public int ClusterId { get; set; }
         public string Name { get; set; }
-        public ClusteringResult Result { get; set; }
+        public virtual ClusteringResult Result { get; set; }
+        public virtual List<CleanObject> CleanObjects { get; } = new List<CleanObject>();
 
         public void Add(CleanObject obj)
         {
