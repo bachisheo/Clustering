@@ -13,8 +13,8 @@ namespace Clustering.Clusterizators
             double[,] data = new double[objects.Count, 2];
             for (int i = 0; i < objects.Count; i++)
             {
-                data[i, 0] = objects[i].Data[0];
-                data[i, 1] = objects[i].Data[1];
+                data[i, 0] = objects[i].ObjData[0];
+                data[i, 1] = objects[i].ObjData[1];
             }
 
             KMeansAlglib clusterizer = new KMeansAlglib();

@@ -15,11 +15,11 @@ namespace Clustering.Charts
         public void Draw(CleanObject obj, StreamWriter sw)
         {
                 sw.Write("{");
-                if(obj.Data.Length > 0)
-                    sw.Write(obj.Data[0]);
-                for (int i = 1; i < obj.Data.Length; i++)
+                if(obj.ObjData.Length > 0)
+                    sw.Write(obj.ObjData[0]);
+                for (int i = 1; i < obj.ObjData.Length; i++)
                 {
-                    sw.Write(", " + obj.Data[i]);
+                    sw.Write(", " + obj.ObjData[i]);
                 }
                 sw.Write("}");
                 
@@ -33,12 +33,12 @@ namespace Clustering.Charts
             for (int i = 0; i < clusters.Count; i++)
             {
                 sw.Write("Cluster #" + (i + 1) +": ");
-                if (clusters[i].Objects.Count > 0)
-                    Draw(clusters[i].Objects[0], sw);
-                for (int j = 1; j < clusters[i].Objects.Count; j++)
+                if (clusters[i].CleanObjects.Count > 0)
+                    Draw(clusters[i].CleanObjects[0], sw);
+                for (int j = 1; j < clusters[i].CleanObjects.Count; j++)
                 {
                     sw.Write(", ");
-                    Draw(clusters[i].Objects[j], sw);
+                    Draw(clusters[i].CleanObjects[j], sw);
                 }
                 sw.WriteLine();
             }

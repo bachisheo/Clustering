@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using Clustering.Objects;
+using OxyPlot;
 
 namespace Clustering.src.Charts
 {

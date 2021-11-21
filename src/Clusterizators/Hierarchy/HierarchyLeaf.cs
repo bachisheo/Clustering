@@ -24,7 +24,7 @@ namespace Clustering.Clusterizators.Hierarchy
 
         public void SetParent(IHierarchyComponent parent) => this.parent = parent;
 
-        public string Info() => "I'm leaf, data: " + baseObj.Data[0];
+        public string Info() => "I'm leaf, data: " + baseObj.ObjData[0];
 
         public HierarchyIterator CreateIterator()
         {
