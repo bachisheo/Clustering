@@ -5,15 +5,11 @@ namespace Clustering.Objects
 {
     public class CleanObject
     {
-        private static int _counter = 0;
-        public int Id {get; private set; }
+        public int CleanObjectId {get; set; }
+        
+        public double [] ObjData { get; set; }
+        public RawObject RawObject { get; set; }
+        public List<Cluster> Clusters { get; } = new List<Cluster>();
 
-        public CleanObject(double [] data)
-        {
-            Data = data ?? throw new ArgumentNullException(nameof(data));
-            Id = _counter++;
-        }
-
-        public double [] Data { get; }
     }
 }

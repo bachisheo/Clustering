@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography.Xml;
@@ -7,8 +8,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Clustering.Charts;
 using Clustering.Clusterizators;
+using Clustering.DataBase;
 using Clustering.Objects;
 using Clustering.src.Charts;
+using OxyPlot;
+using Console = System.Console;
 
 namespace Clustering
 {
@@ -29,28 +33,18 @@ namespace Clustering
 
         static void Main()
         {
-            TestAdapter();
-        }
-
-        static void TestAdapter()
-        {
-                var objects = new List<CleanObject>();
-                objects.Add(new CleanObject(new double[] { 1, 0 }));
-                objects.Add(new CleanObject(new double[] { 50, 80 }));
-                objects.Add(new CleanObject(new double[] { 4, 1 }));
-                objects.Add(new CleanObject(new double[] { 2, 1 }));
-                objects.Add(new CleanObject(new double[] { 60, 70 }));
-
-                var kmeans = new KMeansAlglibAdapter();
-                var clusters = kmeans.Clustering(objects);
-
-            StreamWriter sw = new StreamWriter("..\\..\\..\\result.txt", false, System.Text.Encoding.UTF8);
-            var charts = new List<IChart>();
-            Chart simpleChart = new Chart();
-         
-            simpleChart.Draw(clusters, sw);
-            sw.Close();
-
+            ClusteringContext db = new ClusteringContext();
+            DataSource ds = new DataSource
+            {
+                SourceName = "DataSet_01"
+            };
+            ds.RawObjects.Add(new RawObject{ObjData = new double[]{1, 0}});
+            ds.RawObjects.Add(new RawObject{ObjData = new double[]{50, 80}});
+            ds.RawObjects.Add(new RawObject{ObjData = new double[]{3, 4}});
+            ds.RawObjects.Add(new RawObject{ObjData = new double[]{2, 6}});
+            ds.RawObjects.Add(new RawObject{ObjData = new double[]{90, 60}});
+            db.DataSources.Add(ds);
+            db.SaveChanges();
         }
 
     }

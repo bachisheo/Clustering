@@ -7,13 +7,14 @@ namespace Clustering.Objects
 {
     public class Cluster
     {
-        private List<CleanObject> objects = new List<CleanObject>();
-
-        public List<CleanObject> Objects => objects;
+        public List<CleanObject> CleanObjects { get; } = new List<CleanObject>();
+        public int ClusterId { get; set; }
+        public string Name { get; set; }
+        public ClusteringResult Result { get; set; }
 
         public void Add(CleanObject obj)
         {
-            objects.Add(obj);
+            CleanObjects.Add(obj);
         }
     }
 }
