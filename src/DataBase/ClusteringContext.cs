@@ -10,6 +10,20 @@ namespace Clustering.DataBase
 {
     public class ClusteringContext : DbContext
     {
+        private static ClusteringContext _uniqueInstance;
+        private static string DataBasePath = "clustering.db";
+        public static ClusteringContext Instance
+        {
+            get
+            {
+                if (_uniqueInstance == null)
+                {
+                    _uniqueInstance = new ClusteringContext();
+                    _uniqueInstance.DbPath = DataBasePath;
+                }
+                return _uniqueInstance;
+            }
+        }
 
         public DbSet<Cluster>  Clusters { get; set; }
         public DbSet<CleanObject> CleanObjects { get; set; }
@@ -20,10 +34,6 @@ namespace Clustering.DataBase
 
         public string DbPath { get; private set; }
 
-        public ClusteringContext()
-        {
-            DbPath = "clustering.db";
-        }
 
         public void ClearAllTable()
         {
@@ -33,6 +43,7 @@ namespace Clustering.DataBase
             ClusteringResults.Clear();
             RawSets.Clear();
             RawObjects.Clear();
+            CleanSets.Clear();
         }
       
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -46,8 +57,6 @@ namespace Clustering.DataBase
 
         }
 
-        // The following configures EF to create a Sqlite database file in the
-        // special "local" folder for your platform.
         protected override void OnConfiguring(DbContextOptionsBuilder options)
             => options
                 .UseLazyLoadingProxies()
