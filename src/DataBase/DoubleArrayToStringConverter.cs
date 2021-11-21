@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
+using System.Text;
 
 namespace Clustering.DataBase
 {
@@ -13,14 +15,14 @@ namespace Clustering.DataBase
         }
         public static string DoubleToString(double[] array)
         {
-            string s = "";
-            foreach (var d in array)
+            StringBuilder s = new StringBuilder();
+            s.Append(array[0].ToString(CultureInfo.InvariantCulture));
+            for(int i = 1; i < array.Length; i++)
             {
-                s += d;
-                s += separator;
+                s.Append(separator + array[i].ToString(CultureInfo.InvariantCulture));
             }
 
-            return s;
+            return s.ToString();
         }
     }
 }
