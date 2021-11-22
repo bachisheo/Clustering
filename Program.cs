@@ -12,6 +12,7 @@ using Clustering.Clusterizators;
 using Clustering.DataBase;
 using Clustering.Objects;
 using Clustering.src.Charts;
+using Clustering.src.Managers;
 using Microsoft.EntityFrameworkCore;
 using OxyPlot;
 using Console = System.Console;
@@ -35,14 +36,17 @@ namespace Clustering
 
         static void Main()
         {
-            Logger log = Logger.Instance;
-            log.Log("Main program is started");
-            ClusteringContext db = new ClusteringContext();
-            var rawSet = db.RawSets.First();
-            foreach (var rawObj in rawSet.RawObjects)
-            {
-                Console.WriteLine(rawObj.ObjData[0]);
-            }
+            ClusteringManager manager = new KMeansClusteringManager();
+            manager.CleanSet = new CleanSet();
+            manager.CleanSet.Add(new CleanObject{ObjData = new []{1.9, 2.8}});
+            manager.CleanSet.Add(new CleanObject{ObjData = new []{100.0, 232.8}});
+            manager.CleanSet.Add(new CleanObject{ObjData = new []{10.9, 5.8}});
+            var res = manager.Clusterize();
+            var chart = new ListChart();
+            var sw = new StreamWriter("result.txt", false, System.Text.Encoding.UTF8);
+            chart.Draw(res, sw);
+            sw.Close();
+
         }
 
     }
