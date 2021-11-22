@@ -7,6 +7,9 @@ namespace Clustering.Objects
         public int CleanSetId { get; set; }
         public string Name { get; set; }
         public virtual List<CleanObject> CleanObjects { get; } = new List<CleanObject>();
-
+        public void Add(CleanObject obj)
+        {
+            CleanObjects.Add(obj);
+        }
     }
 }

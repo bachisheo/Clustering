@@ -7,5 +7,10 @@ namespace Clustering.Objects
         public int RawSetId { get; set; }
         public string SourceName { get; set; }
         public virtual List<RawObject> RawObjects { get; } = new List<RawObject>();
+        public void Add(RawObject obj)
+        {
+            RawObjects.Add(obj);
+        }
+
     }
 }

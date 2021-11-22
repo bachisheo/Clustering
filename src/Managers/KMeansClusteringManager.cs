@@ -7,7 +7,7 @@ namespace Clustering.src.Managers
 {
     class KMeansClusteringManager: ClusteringManager
     {
-        public override IClusterizer CreaClusterizer()
+        protected override IClusterizer CreateClusterizer()
         {
             return new KMeansAlglibAdapter();
         }

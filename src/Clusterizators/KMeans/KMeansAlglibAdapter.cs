@@ -8,7 +8,15 @@ namespace Clustering.Clusterizators
 {
     class KMeansAlglibAdapter : IClusterizer
     {
-       public ClusteringResult Clustering(CleanSet set)
+        private string _name = "KMeans from the Alglib library";
+
+        string IClusterizer.Name
+        {
+            get => _name;
+            set => _name = value;
+        }
+
+        public ClusteringResult Clustering(CleanSet set)
        {
            var objects = set.CleanObjects;
             double[,] data = new double[objects.Count, 2];
@@ -21,9 +29,8 @@ namespace Clustering.Clusterizators
             KMeansAlglib clusterizer = new KMeansAlglib();
             var report = clusterizer.clusterizerrunkmeans(data);
             var res = new ClusteringResult();
-            var clusters = new List<Cluster>(report.k);
             
-            for (int i = 0; i < clusters.Capacity; i++)
+            for (int i = 0; i < report.k; i++)
             {
                 var c = new Cluster();
                 c.Result = res;
@@ -31,7 +38,7 @@ namespace Clustering.Clusterizators
             }
             for (int i = 0; i < report.cidx.Length; i++)
             {
-                clusters[report.cidx[i]].Add(objects[i]);
+                res.Clusters[report.cidx[i]].Add(objects[i]);
             }
             return res;
         }

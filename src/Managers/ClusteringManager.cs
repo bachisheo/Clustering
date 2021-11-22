@@ -8,14 +8,27 @@ namespace Clustering
 {
     abstract class ClusteringManager
     {
-        private CleanSet cleanSet;
-        private IChart chart;
-        private IClusterizer clusterizer;
-        public abstract IClusterizer CreaClusterizer();
+        public CleanSet CleanSet { get; set; }
+        public IChart chart { get; protected set; }
 
+        protected IClusterizer clusterizer;
+
+        protected abstract IClusterizer CreateClusterizer();
+
+        public string ClusterInfo => clusterizer.Name;
+
+        protected ClusteringManager()
+        {
+            clusterizer = CreateClusterizer();
+        }
         public ClusteringResult Clusterize()
         {
-            return clusterizer.Clustering(cleanSet);
+            if (CleanSet == null)
+            {
+                Logger.Instance.Log("Empty Dataset!");
+            }
+            return clusterizer.Clustering(CleanSet);
         }
+      
     }
 }
