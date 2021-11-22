@@ -35,14 +35,13 @@ namespace Clustering
 
         static void Main()
         {
+            Logger log = Logger.Instance;
+            log.Log("Main program is started");
             ClusteringContext db = new ClusteringContext();
-          
-            var res = db.RawSets.First(e => e.RawObjects.Count == 5);
-          
-            foreach (var obj in res.RawObjects)
+            var rawSet = db.RawSets.First();
+            foreach (var rawObj in rawSet.RawObjects)
             {
-                Console.WriteLine(obj.ObjData[0]);
-
+                Console.WriteLine(rawObj.ObjData[0]);
             }
         }
 

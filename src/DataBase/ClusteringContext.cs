@@ -10,22 +10,8 @@ namespace Clustering.DataBase
 {
     public class ClusteringContext : DbContext
     {
-        private static ClusteringContext _uniqueInstance;
         private static string DataBasePath = "clustering.db";
-        public static ClusteringContext Instance
-        {
-            get
-            {
-                if (_uniqueInstance == null)
-                {
-                    _uniqueInstance = new ClusteringContext();
-                    _uniqueInstance.DbPath = DataBasePath;
-                }
-                return _uniqueInstance;
-            }
-        }
-
-        public DbSet<Cluster>  Clusters { get; set; }
+       public DbSet<Cluster>  Clusters { get; set; }
         public DbSet<CleanObject> CleanObjects { get; set; }
         public DbSet<ClusteringResult> ClusteringResults { get; set; }
         public DbSet<RawSet> RawSets { get; set; }
@@ -34,8 +20,10 @@ namespace Clustering.DataBase
 
         public string DbPath { get; private set; }
 
-        private ClusteringContext()
+        public ClusteringContext()
         {
+            Logger log = Logger.Instance;
+            log.Log("ClusteringContext was created");
             DbPath = DataBasePath;
         }
 
