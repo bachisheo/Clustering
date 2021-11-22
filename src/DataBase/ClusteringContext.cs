@@ -34,6 +34,10 @@ namespace Clustering.DataBase
 
         public string DbPath { get; private set; }
 
+        private ClusteringContext()
+        {
+            DbPath = DataBasePath;
+        }
 
         public void ClearAllTable()
         {
