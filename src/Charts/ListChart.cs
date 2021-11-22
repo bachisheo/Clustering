@@ -42,5 +42,20 @@ namespace Clustering.Charts
                 sw.WriteLine();
             }
         }
+
+        public void Draw(CleanSet set, StreamWriter sw)
+        {
+            sw.Write("Set:" + set.Name + " ");
+
+            if (set.CleanObjects.Count > 0)
+                Draw(set.CleanObjects[0], sw);
+            for (int j = 1; j < set.CleanObjects.Count; j++)
+            {
+                sw.Write(", ");
+                Draw(set.CleanObjects[j], sw);
+            }
+            sw.WriteLine();
+        }
+
     }
 }
