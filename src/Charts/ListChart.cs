@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Text;
 using Clustering.Objects;
@@ -19,13 +21,9 @@ namespace Clustering.Charts
                     sw.Write(obj.ObjData[0]);
                 for (int i = 1; i < obj.ObjData.Length; i++)
                 {
-                    sw.Write(", " + obj.ObjData[i]);
+                    sw.Write(", " + obj.ObjData[i].ToString(CultureInfo.InvariantCulture));
                 }
                 sw.Write("}");
-                
-                
-
-
         }
 
         public void Draw(ClusteringResult result, StreamWriter sw)

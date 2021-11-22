@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using Clustering.Charts;
 using Clustering.Clusterizators;
 using Clustering.DataBase;
+using Clustering.Managers;
 using Clustering.Objects;
 using Clustering.src.Charts;
 using Clustering.src.Managers;
@@ -36,18 +37,22 @@ namespace Clustering
 
         static void Main()
         {
+            CleanSet cleanSet = new CleanSet();
+            cleanSet.Add(new CleanObject { ObjData = new[] { 1.9, 2.8 } });
+            cleanSet.Add(new CleanObject { ObjData = new[] { 100.0, 232.8 } });
+            cleanSet.Add(new CleanObject { ObjData = new[] { 10.9, 5.8 } });
             ClusteringManager manager = new KMeansClusteringManager();
-            manager.CleanSet = new CleanSet();
-            manager.CleanSet.Add(new CleanObject{ObjData = new []{1.9, 2.8}});
-            manager.CleanSet.Add(new CleanObject{ObjData = new []{100.0, 232.8}});
-            manager.CleanSet.Add(new CleanObject{ObjData = new []{10.9, 5.8}});
+            manager.CleanSet = cleanSet;
             var res = manager.Clusterize();
-            var chart = new ListChart();
             var sw = new StreamWriter("result.txt", false, System.Text.Encoding.UTF8);
-            chart.Draw(res, sw);
+            sw.WriteLine(manager.ClusterInfo);
+            manager.chart.Draw(res, sw);
+            manager = new HierarchyManager();
+            manager.CleanSet = cleanSet;
+            res = manager.Clusterize();
+            sw.WriteLine(manager.ClusterInfo);
+            manager.chart.Draw(res, sw);
             sw.Close();
-
         }
-
     }
 }

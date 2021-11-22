@@ -15,7 +15,12 @@ namespace Clustering.Clusterizators.Hierarchy
 
         public ClusteringResult Clustering(CleanSet set)
         {
-            throw new System.NotImplementedException();
+            var res = new ClusteringResult();
+            var clust = new Cluster();
+            clust.CleanObjects.AddRange(set.CleanObjects);
+            res.Clusters.Add(clust);
+            return res;
+
         }
     }
 }
