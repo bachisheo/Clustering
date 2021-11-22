@@ -28,8 +28,9 @@ namespace Clustering.Charts
 
         }
 
-        public void Draw(List<Cluster> clusters, StreamWriter sw)
+        public void Draw(ClusteringResult result, StreamWriter sw)
         {
+            var clusters = result.Clusters;
             for (int i = 0; i < clusters.Count; i++)
             {
                 sw.Write("Cluster #" + (i + 1) +": ");

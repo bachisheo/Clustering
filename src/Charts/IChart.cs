@@ -9,6 +9,6 @@ namespace Clustering.src.Charts
     public interface IChart
     {
         public void Draw(CleanObject obj, StreamWriter sw);
-        public void Draw(List<Cluster> clusters, StreamWriter sw);
+        public void Draw(ClusteringResult result, StreamWriter sw);
     }
 }

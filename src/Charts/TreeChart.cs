@@ -12,9 +12,11 @@ namespace Clustering.Charts
             throw new System.NotImplementedException();
         }
 
-        public void Draw(List<Cluster> clusters, StreamWriter sw)
+        public void Draw(ClusteringResult result, StreamWriter sw)
         {
             throw new System.NotImplementedException();
         }
+
+        
     }
 }
