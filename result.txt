@@ -1,5 +1,2 @@
-﻿KMeans from the Alglib library
-Cluster #1: {1,9, 2.8}, {10,9, 5.8}
-Cluster #2: {100, 232.8}
-Hierarchy Clusterizer
-Cluster #1: [1,9, 2.8] -> [100, 232.8] -> [10,9, 5.8]
+﻿Set:CleanSetPrototype {1,9, 2.8}, {100, 232.8}, {10,9, 5.8}
+Set:CleanSetPrototypeCopy {1,9, 2.8}, {100, 232.8}, {10,9, 5.8}

@@ -38,20 +38,16 @@ namespace Clustering
         static void Main()
         {
             CleanSet cleanSet = new CleanSet();
+            cleanSet.Name = "CleanSetPrototype";
             cleanSet.Add(new CleanObject { ObjData = new[] { 1.9, 2.8 } });
             cleanSet.Add(new CleanObject { ObjData = new[] { 100.0, 232.8 } });
             cleanSet.Add(new CleanObject { ObjData = new[] { 10.9, 5.8 } });
-            ClusteringManager manager = new KMeansClusteringManager();
-            manager.CleanSet = cleanSet;
-            var res = manager.Clusterize();
+
+            var otherSet = cleanSet.Clone();
             var sw = new StreamWriter("result.txt", false, System.Text.Encoding.UTF8);
-            sw.WriteLine(manager.ClusterInfo);
-            manager.chart.Draw(res, sw);
-            manager = new HierarchyManager();
-            manager.CleanSet = cleanSet;
-            res = manager.Clusterize();
-            sw.WriteLine(manager.ClusterInfo);
-            manager.chart.Draw(res, sw);
+            ListChart lc = new ListChart();
+            lc.Draw(cleanSet, sw);
+            lc.Draw(otherSet, sw);
             sw.Close();
         }
     }
