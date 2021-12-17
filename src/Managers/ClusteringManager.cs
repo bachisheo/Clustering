@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using Clustering.Charts;
 using Clustering.Objects;
 using Clustering.Clusterizators;
@@ -11,7 +12,7 @@ namespace Clustering
     {
         public CleanSet CleanSet { get; set; }
         public IChart chart { get; protected set; }
-
+        public ClusteringResult LastResult { get; protected set; }
         protected IClusterizer clusterizer;
 
         protected abstract IClusterizer CreateClusterizer();
@@ -30,8 +31,12 @@ namespace Clustering
             {
                 Logger.Instance.Log("Empty Dataset!");
             }
-            return clusterizer.Clustering(CleanSet);
+            LastResult = clusterizer.Clustering(CleanSet);
+            LastResult.CleanSet = CleanSet;
+            LastResult.Clusterizer = clusterizer;
+            return LastResult;
         }
-      
+
+        public void Draw(StreamWriter sw) => chart.Draw(LastResult, sw);
     }
 }

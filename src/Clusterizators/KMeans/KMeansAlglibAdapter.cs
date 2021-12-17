@@ -16,9 +16,9 @@ namespace Clustering.Clusterizators
             set => _name = value;
         }
 
-        public ClusteringResult Clustering(CleanSet set)
+        public ClusteringResult Clustering(CleanSet dataSet)
        {
-           var objects = set.CleanObjects;
+           var objects = dataSet.CleanObjects;
             double[,] data = new double[objects.Count, 2];
             for (int i = 0; i < objects.Count; i++)
             {
@@ -29,7 +29,6 @@ namespace Clustering.Clusterizators
             KMeansAlglib clusterizer = new KMeansAlglib();
             var report = clusterizer.clusterizerrunkmeans(data);
             var res = new ClusteringResult();
-            
             for (int i = 0; i < report.k; i++)
             {
                 var c = new Cluster();

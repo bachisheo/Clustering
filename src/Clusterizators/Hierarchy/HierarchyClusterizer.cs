@@ -13,11 +13,11 @@ namespace Clustering.Clusterizators.Hierarchy
             set => _name = value;
         }
 
-        public ClusteringResult Clustering(CleanSet set)
+        public ClusteringResult Clustering(CleanSet dataSet)
         {
             var res = new ClusteringResult();
             var clust = new Cluster();
-            clust.CleanObjects.AddRange(set.CleanObjects);
+            clust.CleanObjects.AddRange(dataSet.CleanObjects);
             res.Clusters.Add(clust);
             return res;
 

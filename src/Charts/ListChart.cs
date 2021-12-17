@@ -28,6 +28,8 @@ namespace Clustering.Charts
 
         public void Draw(ClusteringResult result, StreamWriter sw)
         {
+            sw.WriteLine("Dataset: " + result.CleanSet.Name);
+            sw.WriteLine("Clusterizer: " + result.Clusterizer.Name);
             var clusters = result.Clusters;
             for (int i = 0; i < clusters.Count; i++)
             {
