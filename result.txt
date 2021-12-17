@@ -1,4 +1,4 @@
-﻿Dataset: Данные о погоде
+﻿Dataset: CleanSetPrototype
 Clusterizer: KMeans from the Alglib library
-Cluster #1: {1,9, 2.8}, {10,9, 5.8}
-Cluster #2: {100, 232.8}
+Cluster #1: {100, 232.8}
+Cluster #2: {1,9, 2.8}, {10,9, 5.8}

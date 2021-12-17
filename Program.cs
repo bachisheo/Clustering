@@ -32,7 +32,7 @@ namespace Clustering
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new MainWindowForm());
         }
 
         static void Main()
@@ -44,11 +44,10 @@ namespace Clustering
             cleanSet.Add(new CleanObject { ObjData = new[] { 10.9, 5.8 } });
 
             var sw = new StreamWriter("result.txt", false, System.Text.Encoding.UTF8);
-            ClusteringManager manager = new KMeansClusteringManager();
-            manager.CleanSet = cleanSet;
-            manager.CleanSet.Name = "Данные о погоде";
-            manager.Clusterize();
-            manager.Draw(sw);
+            UIManager manager = new UIManager(sw, new KMeansClusteringManager());
+            manager.LoadData(cleanSet);
+            manager.ClusteringButton.Click();
+            manager.DrawButton.Click();
             sw.Close();
         }
     }
