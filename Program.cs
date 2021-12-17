@@ -43,11 +43,12 @@ namespace Clustering
             cleanSet.Add(new CleanObject { ObjData = new[] { 100.0, 232.8 } });
             cleanSet.Add(new CleanObject { ObjData = new[] { 10.9, 5.8 } });
 
-            var otherSet = cleanSet.Clone();
             var sw = new StreamWriter("result.txt", false, System.Text.Encoding.UTF8);
-            ListChart lc = new ListChart();
-            lc.Draw(cleanSet, sw);
-            lc.Draw(otherSet, sw);
+            ClusteringManager manager = new KMeansClusteringManager();
+            manager.CleanSet = cleanSet;
+            manager.CleanSet.Name = "Данные о погоде";
+            manager.Clusterize();
+            manager.Draw(sw);
             sw.Close();
         }
     }
