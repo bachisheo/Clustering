@@ -14,6 +14,7 @@ using Clustering.Managers;
 using Clustering.Objects;
 using Clustering.src.Charts;
 using Clustering.src.Managers;
+using Clustering.Visitors;
 using Microsoft.EntityFrameworkCore;
 using OxyPlot;
 using Console = System.Console;
@@ -32,7 +33,7 @@ namespace Clustering
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new MainWindowForm());
         }
 
         static void Main()
@@ -48,7 +49,9 @@ namespace Clustering
             manager.CleanSet = cleanSet;
             manager.CleanSet.Name = "Данные о погоде";
             manager.Clusterize();
-            manager.Draw(sw);
+            ConverterToTxt conv = new ConverterToTxt();
+            var res = conv.Convert(manager.LastResult);
+            sw.Write(res);
             sw.Close();
         }
     }

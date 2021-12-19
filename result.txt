@@ -1,4 +1,3 @@
-﻿Dataset: Данные о погоде
-Clusterizer: KMeans from the Alglib library
-Cluster #1: {1,9, 2.8}, {10,9, 5.8}
-Cluster #2: {100, 232.8}
+﻿Результат кластеризации: 
+Кластер #1: {Clustering.Objects.CleanObject, [100; 100]}
+Кластер #2: {Clustering.Objects.CleanObject, [1,9; 1,9], [10,9; 10,9]}
