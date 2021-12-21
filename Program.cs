@@ -7,6 +7,7 @@ using System.Linq;
 using System.Security.Cryptography.Xml;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Clustering.Builders;
 using Clustering.Charts;
 using Clustering.Clusterizators;
 using Clustering.DataBase;
@@ -38,6 +39,7 @@ namespace Clustering
 
         static void Main()
         {
+            RunForms();
             CleanSet cleanSet = new CleanSet();
             cleanSet.Name = "CleanSetPrototype";
             cleanSet.Add(new CleanObject { ObjData = new[] { 1.9, 2.8 } });
@@ -49,9 +51,9 @@ namespace Clustering
             manager.CleanSet = cleanSet;
             manager.CleanSet.Name = "Данные о погоде";
             manager.Clusterize();
-            ConverterToTxt conv = new ConverterToTxt();
-            var res = conv.Convert(manager.LastResult);
-            sw.Write(res);
+            TextBuilder tb = new TextBuilder();
+            tb.BuildDataView(manager.LastResult);
+            sw.Write(tb.GetResult());
             sw.Close();
         }
     }

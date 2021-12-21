@@ -1,3 +1,6 @@
-﻿Результат кластеризации: 
-Кластер #1: {Clustering.Objects.CleanObject, [100; 100]}
-Кластер #2: {Clustering.Objects.CleanObject, [1,9; 1,9], [10,9; 10,9]}
+﻿
+Исходный набор данных:
+Данные о погоде{Clustering.Objects.CleanObject, [1,9; 1,9], [100; 100], [10,9; 10,9]}
+Результат кластеризации: 
+Кластер #1: {Clustering.Objects.CleanObject, [1,9; 1,9], [10,9; 10,9]}
+Кластер #2: {Clustering.Objects.CleanObject, [100; 100]}

@@ -15,6 +15,12 @@ namespace Clustering.Visitors
             Visit(result);
             return sb.ToString();
         }
+        public String Convert(CleanSet cleanSet)
+        {
+            sb = new StringBuilder();
+            Visit(cleanSet);
+            return sb.ToString();
+        }
         public void Visit(ClusteringResult result)
         {
             sb.Append("Результат кластеризации: " + result.ResultName);
@@ -38,7 +44,19 @@ namespace Clustering.Visitors
             }
             sb.Append("}");
         }
-
+        public void Visit(CleanSet cleanSet)
+        {
+            sb.Append(cleanSet.Name);
+            sb.Append("{");
+            if (cleanSet.CleanObjects.Count > 0)
+                sb.Append(cleanSet.CleanObjects[0]);
+            for (int i = 0; i < cleanSet.CleanObjects.Count; i++)
+            {
+                sb.Append(", ");
+                Visit(cleanSet.CleanObjects[i]);
+            }
+            sb.Append("}");
+        }
         public void Visit(CleanObject cleanObject)
         {
             sb.Append("[");

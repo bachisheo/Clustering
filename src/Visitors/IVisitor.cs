@@ -7,5 +7,10 @@ namespace Clustering.Visitors
         public void Visit(ClusteringResult result);
         public void Visit(Cluster cluster);
         public void Visit(CleanObject cleanObject);
+
+        public void Visit(CleanSet cleanSet)
+        {
+        }
+
     }
 }
