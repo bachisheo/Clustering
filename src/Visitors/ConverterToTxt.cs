@@ -36,8 +36,8 @@ namespace Clustering.Visitors
             sb.Append(cluster.Name);
             sb.Append("{");
             if (cluster.CleanObjects.Count > 0)
-                sb.Append(cluster.CleanObjects[0]);
-            for (int i = 0; i < cluster.CleanObjects.Count; i++)
+                Visit(cluster.CleanObjects[0]);
+            for (int i = 1; i < cluster.CleanObjects.Count; i++)
             {
                 sb.Append(", ");
                 Visit(cluster.CleanObjects[i]);
@@ -49,8 +49,8 @@ namespace Clustering.Visitors
             sb.Append(cleanSet.Name);
             sb.Append("{");
             if (cleanSet.CleanObjects.Count > 0)
-                sb.Append(cleanSet.CleanObjects[0]);
-            for (int i = 0; i < cleanSet.CleanObjects.Count; i++)
+                Visit(cleanSet.CleanObjects[0]);
+            for (int i = 1; i < cleanSet.CleanObjects.Count; i++)
             {
                 sb.Append(", ");
                 Visit(cleanSet.CleanObjects[i]);
@@ -65,7 +65,7 @@ namespace Clustering.Visitors
             for (int i = 1; i < cleanObject.ObjData.Length; i++)
             {
                 sb.Append("; ");
-                sb.Append(cleanObject.ObjData[0]);
+                sb.Append(cleanObject.ObjData[i]);
             }
             sb.Append("]");
         }

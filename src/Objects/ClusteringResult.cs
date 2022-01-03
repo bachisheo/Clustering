@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using Clustering.Clusterizators;
 
 namespace Clustering.Objects
@@ -8,7 +9,7 @@ namespace Clustering.Objects
         public virtual List<Cluster> Clusters { get; } = new List<Cluster>();
         public int ClusteringResultId { get; set; }
         public string ResultName { get; set; }
-        public IClusterizer Clusterizer { get; set; }
-        public CleanSet CleanSet { get; set; }
+        [NotMapped] public IClusterizer Clusterizer { get; set; }
+        public virtual CleanSet CleanSet { get; set; }
     }
 }

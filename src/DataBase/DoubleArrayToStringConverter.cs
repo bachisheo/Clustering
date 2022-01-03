@@ -11,7 +11,7 @@ namespace Clustering.DataBase
         public static double[] StringToDouble(string s)
         {
             var data = s.Split(separator);
-            return data.Select(Double.Parse).ToArray();
+             return data.Select((x) => Double.Parse(x, CultureInfo.InvariantCulture)).ToArray();
         }
         public static string DoubleToString(double[] array)
         {
