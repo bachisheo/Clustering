@@ -11,7 +11,7 @@ namespace Clustering.DataBase
     public class ClusteringContext : DbContext
     {
         private static string DataBasePath = "clustering.db";
-       public DbSet<Cluster>  Clusters { get; set; }
+        public DbSet<Cluster> Clusters { get; set; }
         public DbSet<CleanObject> CleanObjects { get; set; }
         public DbSet<ClusteringResult> ClusteringResults { get; set; }
         public DbSet<RawSet> RawSets { get; set; }
@@ -29,15 +29,14 @@ namespace Clustering.DataBase
 
         public void ClearAllTable()
         {
-            
             Clusters.Clear();
             CleanObjects.Clear();
-            ClusteringResults.Clear();
+           // ClusteringResults.Clear();
             RawSets.Clear();
             RawObjects.Clear();
             CleanSets.Clear();
         }
-      
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             var converter = new ValueConverter<double[], string>(

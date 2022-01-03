@@ -1,4 +1,5 @@
 ﻿using System;
+using Clustering.DataBase;
 using Clustering.Normalizers;
 using Clustering.Objects;
 
@@ -8,14 +9,28 @@ namespace Clustering.Managers
     {
         private ClusteringManager _clusterizer;
         private INormalizer _normalizer;
+        private IDBLoader _dbLoader;
 
-        public ProcessingManager(ClusteringManager clusterizer, INormalizer normalizer)
+        public ProcessingManager(ClusteringManager clusterizer, INormalizer normalizer, IDBLoader dbLoader)
         {
             _clusterizer = clusterizer;
             _normalizer = normalizer;
+            _dbLoader = dbLoader;
+        }
+        public ClusteringResult Execute(String dataSetName)
+        {
+            var rawSet = _dbLoader.GetRawSetByName(dataSetName);
+            _clusterizer.CleanSet = _normalizer.Normalize(rawSet);
+            return _clusterizer.Clusterize();
+        } 
+        public ClusteringResult Execute(double[][] data)
+        {
+            var rawSet = ConvertData(data);
+            _clusterizer.CleanSet = _normalizer.Normalize(rawSet);
+            return _clusterizer.Clusterize();
         }
 
-        private RawSet ConvertData(Double[][] data)
+        public RawSet ConvertData(Double[][] data)
         {
             var set = new RawSet();
             foreach (var obj in data)
@@ -25,11 +40,6 @@ namespace Clustering.Managers
 
             return set;
         }
-        public ClusteringResult Execute(double[][] data)
-        {
-            var rawSet = ConvertData(data);
-            _clusterizer.CleanSet = _normalizer.Normalize(rawSet);
-            return _clusterizer.Clusterize();
-        }
+     
     }
 }

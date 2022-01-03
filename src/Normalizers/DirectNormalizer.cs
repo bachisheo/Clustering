@@ -16,6 +16,8 @@ namespace Clustering.Normalizers
             {
                 clean.CleanObjects.Add(new CleanObject(rawObj));
             }
+
+            clean.Name = "Нормализованные " +  data.SourceName;
             return clean;
         }
 

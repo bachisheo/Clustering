@@ -27,20 +27,10 @@ namespace Clustering
 
         static void Main()
         {
-             // RunForms();
-              double[][] data = new[]
-              {
-                  new[] { 1, 2.4 },
-                  new[] { 5, 22.4 },
-                  new[] { 1000, 2000.4 },
-                  new[] { 12, 2.4 },
-                  new[] { 700, 200.4 },
-        };
-            var manager = new ProcessingManager(new KMeansClusteringManager(2), new DirectNormalizer());
-            var res =  manager.Execute(data);
+            var manager = new ProcessingManager(new KMeansClusteringManager(2), new DirectNormalizer(), new SQLiteLoader());
             TextBuilder tb = new TextBuilder();
-            tb.BuildDataView(res);
             StreamWriter sw = new StreamWriter("result.txt");
+            tb.BuildDataView(manager.Execute("Данные о матче"));
             sw.Write(tb.GetResult());
             sw.Close();
         }
