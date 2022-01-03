@@ -9,9 +9,17 @@ namespace Clustering.src.Managers
 {
     class KMeansClusteringManager: ClusteringManager
     {
+        public KMeansClusteringManager(int clusterCount)
+        {
+            _clusterCount = clusterCount;
+            ((KMeansAlglibAdapter)clusterizer).ClusterCount = _clusterCount;
+        }
+        private int _clusterCount;
         protected override IClusterizer CreateClusterizer()
         {
-            return new KMeansAlglibAdapter();
+            clusterizer = new KMeansAlglibAdapter();
+            ((KMeansAlglibAdapter)clusterizer).ClusterCount = _clusterCount;
+            return clusterizer;
         }
 
         protected override IChart CreateChart()
