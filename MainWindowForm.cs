@@ -1,39 +1,70 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 using Clustering.Builders;
-using Clustering.Charts;
+using Clustering.Clusterizators;
+using Clustering.Clusterizators.Hierarchy;
 using Clustering.DataBase;
 using Clustering.Managers;
 using Clustering.Normalizers;
 using Clustering.Objects;
-using Clustering.PlaneChart;
 using Clustering.src.Managers;
-using OxyPlot;
-using OxyPlot.Series;
 
 namespace Clustering
 {
 
     public partial class MainWindowForm : Form
     {
+        
+        public ChartManager chart;
+        public ProcessingManager manager;
+        public IState currentState;
+        public List<ClusteringManager> Clusterizers {  get; private set; }
+        public List<CleanSet> DataSetsList{  get; private set; }
 
-        private ChartManager _chart;
+        public void SetState(IState newState)
+        {
+            currentState = newState;
+        }
+
+        private void InitComboBox()
+        {
+            foreach (var clusterizer in Clusterizers)
+            {
+                ClusterizerSetBox.Items.Add(clusterizer.ClusterInfo);
+            }
+            var db = new ClusteringContext();
+
+            DataSetsList = new List<CleanSet>();
+            foreach (var set in db.CleanSets)
+            {
+                DataSetsList.Add(set);
+                CleanSetNamesBox.Items.Add(set.Name);
+            }
+        }
         public MainWindowForm()
         {
+            
             InitializeComponent();
-            ProcessingManager manager = new ProcessingManager(new KMeansClusteringManager(2), 
-                new AreaNormalizer(PlaneChartView.Width - 100, PlaneChartView.Height - 100),
-                new SQLiteLoader());
-            _chart = new ChartManager(new PlaneChart.PlaneChart());
-           // _chart = new ChartManager(new OxyPlotImplementation(ClusteringResultPlotView));
-            _chart.CreateChart(manager.Execute("Данные со спутника"));
+            currentState = new ClearState(this);
+            Clusterizers = new List<ClusteringManager> {new KMeansClusteringManager(2), new HierarchyManager()};
+
+            manager = new ProcessingManager();
+            manager.DbLoader = new SQLiteLoader();
+
+            
+            InitComboBox();
+
+         
+            /*   manager = new ProcessingManager(new KMeansClusteringManager(2), 
+                   new AreaNormalizer(PlaneChartView.Width - 100, PlaneChartView.Height - 100),
+                   new SQLiteLoader());
+               chart = new ChartManager(new PlaneChart.PlaneChart());
+               
+               chart.CreateChart(manager.Execute("Данные со спутника"));
+            */
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -43,6 +74,7 @@ namespace Clustering
 
         private void buttonClustering_Click(object sender, EventArgs e)
         {
+            currentState.Clusterize();
             var tb = new TextBuilder();
             tb.SetName("Результат кластеризации методом к-средних");
             ResultTextBox.Text = tb.GetResult();
@@ -51,14 +83,27 @@ namespace Clustering
 
         private void buttonDraw_Click(object sender, EventArgs e)
         {
-            var gb = new GraphBuilder();
-            gb.SetName("Результат кластеризации");
-            this.ClusteringResultPlotView.Model = gb.GetResult();
+           currentState.DrawResult();
         }
 
         private void PlaneChartView_Paint(object sender, PaintEventArgs e)
         {
-            _chart.Draw(e.Graphics);
+           // chart.Draw(e.Graphics);
+        }
+        public ClusteringManager GetClusterizer(string clusterizerName)
+        {
+            return Clusterizers.Find((x) => x.ClusterInfo == clusterizerName);
+
+        }
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            currentState.SetClusterizer(GetClusterizer(ClusterizerSetBox.SelectedItem.ToString()));
+          
+        }
+
+        private void CleanSetNamesBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            currentState.SetData(manager.DbLoader.GetSetByName(CleanSetNamesBox.SelectedItem.ToString()));
         }
     }
 }

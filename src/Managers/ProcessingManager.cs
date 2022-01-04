@@ -7,27 +7,39 @@ namespace Clustering.Managers
 {
     public class ProcessingManager
     {
-        private ClusteringManager _clusterizer;
-        private INormalizer _normalizer;
-        private IDBLoader _dbLoader;
+        public ClusteringManager Clusterizer { get; set; }
+        public INormalizer Normalizer { get; set; }
+        public IDBLoader DbLoader { get; set; }
 
+        public ProcessingManager()
+        {
+        }
+
+        public bool IsAllParamsInitialized()
+        {
+            return Clusterizer != null && !(Clusterizer is { CleanSet: null });
+        }
         public ProcessingManager(ClusteringManager clusterizer, INormalizer normalizer, IDBLoader dbLoader)
         {
-            _clusterizer = clusterizer;
-            _normalizer = normalizer;
-            _dbLoader = dbLoader;
+            Clusterizer = clusterizer;
+            Normalizer = normalizer;
+            DbLoader = dbLoader;
         }
+        public ClusteringResult Execute()
+        {
+            return Clusterizer.Clusterize();
+        } 
         public ClusteringResult Execute(String dataSetName)
         {
-            var rawSet = _dbLoader.GetRawSetByName(dataSetName);
-            _clusterizer.CleanSet = _normalizer.Normalize(rawSet);
-            return _clusterizer.Clusterize();
+            var rawSet = DbLoader.GetRawSetByName(dataSetName);
+            Clusterizer.CleanSet = Normalizer.Normalize(rawSet);
+            return Clusterizer.Clusterize();
         } 
         public ClusteringResult Execute(double[][] data)
         {
             var rawSet = ConvertData(data);
-            _clusterizer.CleanSet = _normalizer.Normalize(rawSet);
-            return _clusterizer.Clusterize();
+            Clusterizer.CleanSet = Normalizer.Normalize(rawSet);
+            return Clusterizer.Clusterize();
         }
 
         public RawSet ConvertData(Double[][] data)
