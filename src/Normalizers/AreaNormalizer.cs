@@ -22,13 +22,13 @@ namespace Clustering.Normalizers
                 data[0] += Math.Abs(minX);
             }
 
-            data[0] = data[0] * _width / maxX;
+            data[0] = (data[0] * _width) / maxX;
             if (minY < 0)
             {
                 data[1] += Math.Abs(minY);
             }
 
-            data[1] = data[1] * _height / maxY ;
+            data[1] = (data[1] * _height) / maxY ;
             var o = new CleanObject();
             o.ObjData = data;
             return o;

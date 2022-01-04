@@ -33,9 +33,9 @@ namespace Clustering
             _mainform.manager.Clusterizer = manager;
         }
 
-        public void SetData(CleanSet dataSet)
+        public void SetData(RawSet dataSet)
         {
-            _mainform.manager.Clusterizer.CleanSet = dataSet;
+            _mainform.manager.DataRawSet = dataSet;
         }
     }
 }

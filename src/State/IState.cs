@@ -10,6 +10,6 @@ namespace Clustering
         public void Clear();
         public void DrawResult();
         public void SetClusterizer(ClusteringManager manager);
-        public void SetData(CleanSet dataSet);
+        public void SetData(RawSet dataSet);
     }
 }

@@ -11,11 +11,13 @@ namespace Clustering.Charts
     {
         private PlotModel _model;
         private ScatterSeries _currentSeries;
+        private OxyPlot.WindowsForms.PlotView _view;
         public OxyPlotImplementation(OxyPlot.WindowsForms.PlotView view)
         {
             _model = new PlotModel();
             view.Model = _model;
             _model.Background = OxyColor.FromRgb(255, 255, 255);
+            _view = view;
         }
         public void SetName(string name)
         {
@@ -50,7 +52,9 @@ namespace Clustering.Charts
             _model.Series.Add(_currentSeries);
         }
 
-
-
+        public void Reset()
+        {
+            _model.Series.Clear();
+        }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 using Clustering.Builders;
+using Clustering.Charts;
 using Clustering.Clusterizators;
 using Clustering.Clusterizators.Hierarchy;
 using Clustering.DataBase;
@@ -10,18 +11,19 @@ using Clustering.Managers;
 using Clustering.Normalizers;
 using Clustering.Objects;
 using Clustering.src.Managers;
+using Clustering.src.Observer;
 
 namespace Clustering
 {
 
-    public partial class MainWindowForm : Form
+    public partial class MainWindowForm : Form, IObserver
     {
         
         public ChartManager chart;
         public ProcessingManager manager;
         public IState currentState;
         public List<ClusteringManager> Clusterizers {  get; private set; }
-        public List<CleanSet> DataSetsList{  get; private set; }
+        public List<RawSet> DataSetsList{  get; private set; }
 
         public void SetState(IState newState)
         {
@@ -36,14 +38,14 @@ namespace Clustering
             }
             var db = new ClusteringContext();
 
-            DataSetsList = new List<CleanSet>();
-            foreach (var set in db.CleanSets)
+            DataSetsList = new List<RawSet>();
+            foreach (var set in db.RawSets)
             {
                 DataSetsList.Add(set);
-                CleanSetNamesBox.Items.Add(set.Name);
+                CleanSetNamesBox.Items.Add(set.SourceName);
             }
         }
-        public MainWindowForm()
+        public MainWindowForm() 
         {
             
             InitializeComponent();
@@ -51,8 +53,14 @@ namespace Clustering
             Clusterizers = new List<ClusteringManager> {new KMeansClusteringManager(2), new HierarchyManager()};
 
             manager = new ProcessingManager();
+            
+            manager.Normalizer = new AreaNormalizer(PlaneChartView.Width - 100, PlaneChartView.Height - 100);
+            chart = new ChartManager(new PlaneChart.PlaneChart());
+            var events = new EventManager();
+            events.Attach(chart);
+            events.Attach(this);
+            manager.Events.Add(events);
             manager.DbLoader = new SQLiteLoader();
-
             
             InitComboBox();
 
@@ -74,7 +82,7 @@ namespace Clustering
 
         private void buttonClustering_Click(object sender, EventArgs e)
         {
-            currentState.Clusterize();
+            manager.Execute();
             var tb = new TextBuilder();
             tb.SetName("Результат кластеризации методом к-средних");
             ResultTextBox.Text = tb.GetResult();
@@ -88,7 +96,7 @@ namespace Clustering
 
         private void PlaneChartView_Paint(object sender, PaintEventArgs e)
         {
-           // chart.Draw(e.Graphics);
+           chart.Draw(e.Graphics);
         }
         public ClusteringManager GetClusterizer(string clusterizerName)
         {
@@ -103,7 +111,17 @@ namespace Clustering
 
         private void CleanSetNamesBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            currentState.SetData(manager.DbLoader.GetSetByName(CleanSetNamesBox.SelectedItem.ToString()));
+            currentState.SetData(manager.DbLoader.GetRawSetByName(CleanSetNamesBox.SelectedItem.ToString()));
+        }
+
+        public void Update(EventType eventType, ClusteringResult result)
+        {
+            Refresh();
+        }
+
+        private void NormalizerBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+           
         }
     }
 }

@@ -1,18 +1,23 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using Clustering.DataBase;
 using Clustering.Normalizers;
 using Clustering.Objects;
+using Clustering.src.Observer;
 
 namespace Clustering.Managers
 {
     public class ProcessingManager
     {
+        public List<EventManager> Events { set; get; }
         public ClusteringManager Clusterizer { get; set; }
         public INormalizer Normalizer { get; set; }
         public IDBLoader DbLoader { get; set; }
-
+        public RawSet DataRawSet { get; set; }
         public ProcessingManager()
         {
+            Events = new List<EventManager>();
         }
 
         public bool IsAllParamsInitialized()
@@ -27,7 +32,16 @@ namespace Clustering.Managers
         }
         public ClusteringResult Execute()
         {
-            return Clusterizer.Clusterize();
+           
+            Clusterizer.CleanSet = Normalizer.Normalize(DataRawSet);
+ 
+            var result = Clusterizer.Clusterize();
+            foreach (var _event in Events)
+            {
+                _event.NotifyAll(EventType.clustering, result);
+            }
+
+            return result;
         } 
         public ClusteringResult Execute(String dataSetName)
         {

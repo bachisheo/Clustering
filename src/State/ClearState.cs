@@ -37,9 +37,9 @@ namespace Clustering
                 _mainform.SetState(new InitializedState(_mainform));
         }
 
-        public void SetData(CleanSet dataSet)
+        public void SetData(RawSet dataSet)
         {
-            _mainform.manager.Clusterizer.CleanSet = dataSet;
+            _mainform.manager.DataRawSet = dataSet;
             if (_mainform.manager.IsAllParamsInitialized())
                 _mainform.SetState(new InitializedState(_mainform));
         }
