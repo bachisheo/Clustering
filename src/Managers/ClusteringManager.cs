@@ -34,6 +34,7 @@ namespace Clustering
             LastResult = clusterizer.Clustering(CleanSet);
             LastResult.CleanSet = CleanSet;
             LastResult.Clusterizer = clusterizer;
+            LastResult.ResultName = CleanSet.Name;
             return LastResult;
         }
 

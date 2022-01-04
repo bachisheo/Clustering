@@ -4,7 +4,7 @@ namespace Clustering.Normalizers
 {
     public interface INormalizer
     {
-        protected CleanObject Normalize(RawObject obj);
+        public CleanObject Normalize(RawObject obj);
         public CleanSet Normalize(RawSet data);
     }
 }

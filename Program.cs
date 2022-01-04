@@ -27,8 +27,17 @@ namespace Clustering
 
         static void Main()
         {
+            RunForms();
+           double[][] data = new[]
+           {
+               new[] { 1, 2.3 },
+               new[] { 2, 2.3 },
+               new[] { 2.3, 1.3 }
+           };
             var manager = new ProcessingManager(new KMeansClusteringManager(2), new DirectNormalizer(), new SQLiteLoader());
-            TextBuilder tb = new TextBuilder();
+            var set = manager.ConvertData(data);
+
+             TextBuilder tb = new TextBuilder();
             StreamWriter sw = new StreamWriter("result.txt");
             tb.BuildDataView(manager.Execute("Данные о матче"));
             sw.Write(tb.GetResult());
