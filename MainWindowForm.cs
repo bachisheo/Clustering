@@ -24,7 +24,8 @@ namespace Clustering
         public IState currentState;
         public List<ClusteringManager> Clusterizers {  get; private set; }
         public List<RawSet> DataSetsList{  get; private set; }
-
+        private MementoKeeper mk;
+        private PlaneChart.PlaneChart planeChart;
         public void SetState(IState newState)
         {
             currentState = newState;
@@ -47,7 +48,6 @@ namespace Clustering
         }
         public MainWindowForm() 
         {
-            
             InitializeComponent();
             currentState = new ClearState(this);
             Clusterizers = new List<ClusteringManager> {new KMeansClusteringManager(2), new HierarchyManager()};
@@ -55,13 +55,18 @@ namespace Clustering
             manager = new ProcessingManager();
             
             manager.Normalizer = new AreaNormalizer(PlaneChartView.Width - 100, PlaneChartView.Height - 100);
-            chart = new ChartManager(new PlaneChart.PlaneChart());
+            planeChart = new PlaneChart.PlaneChart();
+            chart = new ChartManager(planeChart);
+
+            mk = new MementoKeeper(planeChart);
+
             var events = new EventManager();
             events.Attach(chart);
             events.Attach(this);
+            events.Attach(mk);
             manager.Events.Add(events);
             manager.DbLoader = new SQLiteLoader();
-            
+
             InitComboBox();
 
          
@@ -116,12 +121,24 @@ namespace Clustering
 
         public void Update(EventType eventType, ClusteringResult result)
         {
+            NormalizerBox.Items.Clear();
+            foreach (var mem in mk.mems)
+            {
+                NormalizerBox.Items.Add(mem.MementoName);
+            }
             Refresh();
+            
         }
 
         private void NormalizerBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-           
+            planeChart.SetMemento(mk.mems.Find((x) => x.MementoName == NormalizerBox.SelectedItem.ToString()));
+            Refresh();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

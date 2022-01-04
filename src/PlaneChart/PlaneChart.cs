@@ -8,15 +8,27 @@ namespace Clustering.PlaneChart
 {
     public class PlaneChart :IChartImplementation
     {
+
         private string _name = "";
         private List<Point> _points = new List<Point>();
-        public List<Figure> _activeFigures;
-        public Figure currentType;
+        public List<Figure> _activeFigures = new List<Figure>();
         private bool _isNeedToClear = false;
+        private int memCount = 0;
 
+        public PlaneChartMemento CreateMemento()
+        {
+            return new PlaneChartMemento("Снимок " + ++memCount + " (" + _name + ")", _name, _points, _activeFigures);
+        }
+
+        public void SetMemento(PlaneChartMemento memento)
+        {
+            _name = memento.Name;
+            _points = memento.Points;
+            _activeFigures = memento.ActiveFigures;
+        }
         public void SetPoint(double x, double y)
         {
-            _points.Add(new Point((float)x, (float)y, currentType));
+            _points.Add(new Point((float)x, (float)y, _activeFigures[^1]));
         }
 
         public void Draw(Graphics gr)
@@ -54,7 +66,7 @@ namespace Clustering.PlaneChart
          
         public void SetPointType(Color color, Figure.FigureType type, int size)
         {
-            currentType = (new Figure { color = color, type = type, size = size });
+            _activeFigures.Add(new Figure { color = color, type = type, size = size });
         }
 
         public void SetName(string name)
