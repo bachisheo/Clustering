@@ -31,7 +31,6 @@ namespace Clustering.DataBase
         {
             Clusters.Clear();
             CleanObjects.Clear();
-           // ClusteringResults.Clear();
             RawSets.Clear();
             RawObjects.Clear();
             CleanSets.Clear();
