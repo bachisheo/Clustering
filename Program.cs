@@ -17,26 +17,12 @@ namespace Clustering
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainWindowForm());
+            Application.Run(new UIManager());
         }
 
         static void Main()
         {
             RunForms();
-           double[][] data = new[]
-           {
-               new[] { 1, 2.3 },
-               new[] { 2, 2.3 },
-               new[] { 2.3, 1.3 }
-           };
-            var manager = new ProcessingManager(new KMeansClusteringManager(2), new DirectNormalizer(), new SQLiteReader());
-     
-
-             TextBuilder tb = new TextBuilder();
-            StreamWriter sw = new StreamWriter("result.txt");
-           // tb.BuildDataView(manager.Execute("Данные о матче"));
-            sw.Write(tb.GetResult());
-            sw.Close();
         }
     }
 }

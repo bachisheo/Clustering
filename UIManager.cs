@@ -16,7 +16,7 @@ namespace Clustering
     /// <summary>
     /// Главная форма пользовательского интерфейса
     /// </summary>
-    public partial class MainWindowForm : Form, IObserver
+    public partial class UIManager : Form, IObserver
     {
         public ChartManager chart;
         private ProcessingManager _manager;
@@ -66,7 +66,7 @@ namespace Clustering
             InitComboBox();
         }
 
-        public MainWindowForm() 
+        public UIManager() 
         {
             InitializeComponent();
             Load1();

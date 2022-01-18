@@ -1,7 +1,7 @@
 ﻿
 namespace Clustering
 {
-    partial class MainWindowForm
+    partial class UIManager
     {
         /// <summary>
         ///  Required designer variable.
@@ -202,7 +202,7 @@ namespace Clustering
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Name = "MainWindowForm";
+            this.Name = "UIManager";
             this.Text = "BachClusterizer";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
