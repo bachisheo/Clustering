@@ -18,15 +18,14 @@ namespace Clustering.Objects
             return new CleanObject { CleanObjectId = maxid++, ObjData = this.ObjData, RawObject = this.RawObject };
         }
 
-        public CleanObject()
-        {
-        }
-
+        public CleanObject(){}
+     
         private CleanObject(RawObject rawObject)
         {
             ObjData = rawObject.ObjData;
             RawObject = rawObject;
         }
+
         public CleanObject(RawObject obj, CleanSet set)
             : this(obj)
         {
@@ -36,6 +35,7 @@ namespace Clustering.Objects
         {
             ObjData = cleanObject.ObjData;
             RawObject = cleanObject.RawObject;
+            CleanObjectId = maxid++;
         }
         public CleanObject (CleanObject obj, CleanSet set)
         :this(obj)

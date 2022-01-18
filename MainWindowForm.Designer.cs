@@ -37,7 +37,7 @@ namespace Clustering
             this.PlaneChartView = new OxyPlot.WindowsForms.PlotView();
             this.ClusterizerSetBox = new System.Windows.Forms.ComboBox();
             this.CleanSetNamesBox = new System.Windows.Forms.ComboBox();
-            this.NormalizerBox = new System.Windows.Forms.ComboBox();
+            this.ChartMementoBox = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -66,7 +66,7 @@ namespace Clustering
             this.buttonClustering.TabIndex = 2;
             this.buttonClustering.Text = "Кластеризовать";
             this.buttonClustering.UseVisualStyleBackColor = true;
-            this.buttonClustering.Click += new System.EventHandler(this.buttonClustering_Click);
+            this.buttonClustering.Click += new System.EventHandler(this.Сlusterize_Button_Click);
             // 
             // buttonDraw
             // 
@@ -118,14 +118,14 @@ namespace Clustering
             this.CleanSetNamesBox.TabIndex = 7;
             this.CleanSetNamesBox.SelectedIndexChanged += new System.EventHandler(this.CleanSetNamesBox_SelectedIndexChanged);
             // 
-            // NormalizerBox
+            // ChartMementoBox
             // 
-            this.NormalizerBox.FormattingEnabled = true;
-            this.NormalizerBox.Location = new System.Drawing.Point(985, 91);
-            this.NormalizerBox.Name = "NormalizerBox";
-            this.NormalizerBox.Size = new System.Drawing.Size(260, 28);
-            this.NormalizerBox.TabIndex = 8;
-            this.NormalizerBox.SelectedIndexChanged += new System.EventHandler(this.NormalizerBox_SelectedIndexChanged);
+            this.ChartMementoBox.FormattingEnabled = true;
+            this.ChartMementoBox.Location = new System.Drawing.Point(985, 91);
+            this.ChartMementoBox.Name = "ChartMementoBox";
+            this.ChartMementoBox.Size = new System.Drawing.Size(260, 28);
+            this.ChartMementoBox.TabIndex = 8;
+            this.ChartMementoBox.SelectedIndexChanged += new System.EventHandler(this.NormalizerBox_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -180,7 +180,7 @@ namespace Clustering
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.NormalizerBox);
+            this.Controls.Add(this.ChartMementoBox);
             this.Controls.Add(this.CleanSetNamesBox);
             this.Controls.Add(this.ClusterizerSetBox);
             this.Controls.Add(this.PlaneChartView);
@@ -190,7 +190,6 @@ namespace Clustering
             this.Controls.Add(this.ClusteringResultPlotView);
             this.Name = "MainWindowForm";
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -205,7 +204,7 @@ namespace Clustering
         private OxyPlot.WindowsForms.PlotView PlaneChartView;
         private System.Windows.Forms.ComboBox ClusterizerSetBox;
         private System.Windows.Forms.ComboBox CleanSetNamesBox;
-        private System.Windows.Forms.ComboBox NormalizerBox;
+        private System.Windows.Forms.ComboBox ChartMementoBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
