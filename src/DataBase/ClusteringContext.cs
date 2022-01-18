@@ -22,7 +22,7 @@ namespace Clustering.DataBase
 
         public ClusteringContext()
         {
-            Logger log = Logger.Instance;
+            var log = FileLogger.Instance;
             log.Log("ClusteringContext was created");
             DbPath = DataBasePath;
         }

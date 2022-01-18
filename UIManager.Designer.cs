@@ -30,9 +30,7 @@ namespace Clustering
         /// </summary>
         private void InitializeComponent()
         {
-            this.ClusteringResultPlotView = new OxyPlot.WindowsForms.PlotView();
             this.buttonClustering = new System.Windows.Forms.Button();
-            this.buttonDraw = new System.Windows.Forms.Button();
             this.ResultTextBox = new System.Windows.Forms.RichTextBox();
             this.PlaneChartView = new OxyPlot.WindowsForms.PlotView();
             this.ClusterizerSetBox = new System.Windows.Forms.ComboBox();
@@ -41,58 +39,45 @@ namespace Clustering
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.Export_Button = new System.Windows.Forms.Button();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.panel1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // ClusteringResultPlotView
-            // 
-            this.ClusteringResultPlotView.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.ClusteringResultPlotView.Location = new System.Drawing.Point(958, 369);
-            this.ClusteringResultPlotView.Name = "ClusteringResultPlotView";
-            this.ClusteringResultPlotView.PanCursor = System.Windows.Forms.Cursors.Hand;
-            this.ClusteringResultPlotView.Size = new System.Drawing.Size(510, 84);
-            this.ClusteringResultPlotView.TabIndex = 0;
-            this.ClusteringResultPlotView.Text = "plotView1";
-            this.ClusteringResultPlotView.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE;
-            this.ClusteringResultPlotView.ZoomRectangleCursor = System.Windows.Forms.Cursors.SizeNWSE;
-            this.ClusteringResultPlotView.ZoomVerticalCursor = System.Windows.Forms.Cursors.SizeNS;
             // 
             // buttonClustering
             // 
-            this.buttonClustering.Location = new System.Drawing.Point(650, 40);
+            this.buttonClustering.Location = new System.Drawing.Point(407, 32);
             this.buttonClustering.Name = "buttonClustering";
-            this.buttonClustering.Size = new System.Drawing.Size(168, 29);
+            this.buttonClustering.Size = new System.Drawing.Size(135, 29);
             this.buttonClustering.TabIndex = 2;
             this.buttonClustering.Text = "Кластеризовать";
             this.buttonClustering.UseVisualStyleBackColor = true;
             this.buttonClustering.Click += new System.EventHandler(this.Сlusterize_Button_Click);
             // 
-            // buttonDraw
-            // 
-            this.buttonDraw.Location = new System.Drawing.Point(1049, 40);
-            this.buttonDraw.Name = "buttonDraw";
-            this.buttonDraw.Size = new System.Drawing.Size(171, 29);
-            this.buttonDraw.TabIndex = 3;
-            this.buttonDraw.Text = "Построить график";
-            this.buttonDraw.UseVisualStyleBackColor = true;
-            this.buttonDraw.Click += new System.EventHandler(this.buttonDraw_Click);
-            // 
             // ResultTextBox
             // 
-            this.ResultTextBox.Location = new System.Drawing.Point(985, 225);
+            this.ResultTextBox.AutoWordSelection = true;
+            this.ResultTextBox.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.ResultTextBox.Location = new System.Drawing.Point(6, 23);
             this.ResultTextBox.Name = "ResultTextBox";
-            this.ResultTextBox.Size = new System.Drawing.Size(384, 245);
+            this.ResultTextBox.ReadOnly = true;
+            this.ResultTextBox.Size = new System.Drawing.Size(558, 280);
             this.ResultTextBox.TabIndex = 4;
             this.ResultTextBox.Text = "";
             // 
             // PlaneChartView
             // 
             this.PlaneChartView.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.PlaneChartView.Location = new System.Drawing.Point(72, 104);
+            this.PlaneChartView.Location = new System.Drawing.Point(20, 112);
             this.PlaneChartView.Name = "PlaneChartView";
             this.PlaneChartView.PanCursor = System.Windows.Forms.Cursors.Hand;
-            this.PlaneChartView.Size = new System.Drawing.Size(851, 366);
+            this.PlaneChartView.Size = new System.Drawing.Size(545, 303);
             this.PlaneChartView.TabIndex = 5;
             this.PlaneChartView.Text = "plotView1";
             this.PlaneChartView.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE;
@@ -103,7 +88,7 @@ namespace Clustering
             // ClusterizerSetBox
             // 
             this.ClusterizerSetBox.FormattingEnabled = true;
-            this.ClusterizerSetBox.Location = new System.Drawing.Point(72, 40);
+            this.ClusterizerSetBox.Location = new System.Drawing.Point(7, 33);
             this.ClusterizerSetBox.Name = "ClusterizerSetBox";
             this.ClusterizerSetBox.Size = new System.Drawing.Size(185, 28);
             this.ClusterizerSetBox.TabIndex = 6;
@@ -112,7 +97,7 @@ namespace Clustering
             // CleanSetNamesBox
             // 
             this.CleanSetNamesBox.FormattingEnabled = true;
-            this.CleanSetNamesBox.Location = new System.Drawing.Point(263, 39);
+            this.CleanSetNamesBox.Location = new System.Drawing.Point(198, 33);
             this.CleanSetNamesBox.Name = "CleanSetNamesBox";
             this.CleanSetNamesBox.Size = new System.Drawing.Size(203, 28);
             this.CleanSetNamesBox.TabIndex = 7;
@@ -121,16 +106,16 @@ namespace Clustering
             // ChartMementoBox
             // 
             this.ChartMementoBox.FormattingEnabled = true;
-            this.ChartMementoBox.Location = new System.Drawing.Point(985, 91);
+            this.ChartMementoBox.Location = new System.Drawing.Point(20, 55);
             this.ChartMementoBox.Name = "ChartMementoBox";
-            this.ChartMementoBox.Size = new System.Drawing.Size(260, 28);
+            this.ChartMementoBox.Size = new System.Drawing.Size(545, 28);
             this.ChartMementoBox.TabIndex = 8;
-            this.ChartMementoBox.SelectedIndexChanged += new System.EventHandler(this.NormalizerBox_SelectedIndexChanged);
+            this.ChartMementoBox.SelectedIndexChanged += new System.EventHandler(this.ChartMementoBox_SelectedIndexChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(72, 17);
+            this.label1.Location = new System.Drawing.Point(7, 10);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(185, 20);
             this.label1.TabIndex = 10;
@@ -139,7 +124,7 @@ namespace Clustering
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(281, 17);
+            this.label2.Location = new System.Drawing.Point(216, 10);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(111, 20);
             this.label2.TabIndex = 11;
@@ -148,58 +133,89 @@ namespace Clustering
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(985, 68);
+            this.label3.Location = new System.Drawing.Point(20, 32);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(182, 20);
             this.label3.TabIndex = 12;
             this.label3.Text = "Предыдущие результаты";
             // 
-            // textBox1
+            // panel1
             // 
-            this.textBox1.Location = new System.Drawing.Point(472, 40);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(164, 27);
-            this.textBox1.TabIndex = 13;
+            this.panel1.Controls.Add(this.CleanSetNamesBox);
+            this.panel1.Controls.Add(this.buttonClustering);
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.ClusterizerSetBox);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Location = new System.Drawing.Point(6, 26);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(555, 80);
+            this.panel1.TabIndex = 17;
             // 
-            // label4
+            // groupBox1
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(472, 17);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(164, 20);
-            this.label4.TabIndex = 14;
-            this.label4.Text = "Количество кластеров";
+            this.groupBox1.Controls.Add(this.panel1);
+            this.groupBox1.Location = new System.Drawing.Point(12, 17);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(570, 112);
+            this.groupBox1.TabIndex = 19;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Управление";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.Export_Button);
+            this.groupBox2.Controls.Add(this.label3);
+            this.groupBox2.Controls.Add(this.ChartMementoBox);
+            this.groupBox2.Controls.Add(this.PlaneChartView);
+            this.groupBox2.Location = new System.Drawing.Point(588, 17);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(575, 451);
+            this.groupBox2.TabIndex = 20;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Представление результата";
+            // 
+            // Export_Button
+            // 
+            this.Export_Button.Location = new System.Drawing.Point(359, 422);
+            this.Export_Button.Name = "Export_Button";
+            this.Export_Button.Size = new System.Drawing.Size(210, 29);
+            this.Export_Button.TabIndex = 17;
+            this.Export_Button.Text = "Экспортировать результат";
+            this.Export_Button.UseVisualStyleBackColor = true;
+            this.Export_Button.Click += new System.EventHandler(this.Export_Button_Click);
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.ResultTextBox);
+            this.groupBox3.Location = new System.Drawing.Point(12, 129);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(570, 339);
+            this.groupBox3.TabIndex = 21;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Журналирование";
             // 
             // MainWindowForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1522, 506);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.ChartMementoBox);
-            this.Controls.Add(this.CleanSetNamesBox);
-            this.Controls.Add(this.ClusterizerSetBox);
-            this.Controls.Add(this.PlaneChartView);
-            this.Controls.Add(this.ResultTextBox);
-            this.Controls.Add(this.buttonDraw);
-            this.Controls.Add(this.buttonClustering);
-            this.Controls.Add(this.ClusteringResultPlotView);
+            this.ClientSize = new System.Drawing.Size(1172, 497);
+            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBox1);
             this.Name = "MainWindowForm";
-            this.Text = "Form1";
+            this.Text = "BachClusterizer";
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private OxyPlot.WindowsForms.PlotView ClusteringResultPlotView;
         private System.Windows.Forms.Button buttonClustering;
-        private System.Windows.Forms.Button buttonDraw;
         private System.Windows.Forms.RichTextBox ResultTextBox;
         private OxyPlot.WindowsForms.PlotView PlaneChartView;
         private System.Windows.Forms.ComboBox ClusterizerSetBox;
@@ -208,8 +224,11 @@ namespace Clustering
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Button Export_Button;
+        private System.Windows.Forms.GroupBox groupBox3;
     }
 }
 

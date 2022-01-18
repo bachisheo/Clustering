@@ -8,14 +8,8 @@ namespace Clustering.Clusterizators
 {
     class KMeansAlglibAdapter : IClusterizer
     {
-        private string _name = "KMeans from the Alglib library";
         public int ClusterCount { get; set; }
-        string IClusterizer.Name
-        {
-            get => _name;
-            set => _name = value;
-        }
-
+     
         public KMeansAlglibAdapter(int K)
         {
             ClusterCount = K;
@@ -44,6 +38,10 @@ namespace Clustering.Clusterizators
                 res.Clusters[report.cidx[i]].Add(objects[i]);
             }
             return res;
+        }
+        public override string ToString()
+        {
+            return "KMeans from the Alglib library";
         }
     }
 }

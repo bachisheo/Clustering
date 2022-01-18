@@ -10,14 +10,13 @@ namespace Clustering.Managers
         public IChartImplementation Impl { get; }
 
 
-        public void Update(EventType eventType, ClusteringResult result)
+        public void Update(ClusteringResult result)
         {
             CreateChart(result);
         }
         public void Draw(Graphics gr)
         {
             Impl.Draw(gr);
-            
         }
 
         public ChartManager(IChartImplementation impl)
@@ -27,7 +26,7 @@ namespace Clustering.Managers
         public void CreateChart(ClusteringResult result)
         {
             Impl.Reset();
-            Impl.SetName(result.ResultName);
+            Impl.SetName("Данные: \"" + result.ResultName +"\", метод: \""+ result.Clusterizer.ToString()+ "\".");
             Figure.FigureType[] figures = new[] { Figure.FigureType.circle, Figure.FigureType.rectangle, Figure.FigureType.diamond, Figure.FigureType.triangle };
             Color[] colors = new[] { Color.BlueViolet, Color.Blue, Color.Brown, Color.DarkGreen, Color.Yellow };
             for (int i = 0; i < result.Clusters.Count; i++)

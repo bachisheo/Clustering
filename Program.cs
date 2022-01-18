@@ -29,7 +29,7 @@ namespace Clustering
                new[] { 2, 2.3 },
                new[] { 2.3, 1.3 }
            };
-            var manager = new ProcessingManager(new ClusteringManager(new KMeansAlglibAdapter(2)), new DirectNormalizer(), new SQLiteReader());
+            var manager = new ProcessingManager(new KMeansClusteringManager(2), new DirectNormalizer(), new SQLiteReader());
      
 
              TextBuilder tb = new TextBuilder();

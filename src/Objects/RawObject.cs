@@ -8,14 +8,14 @@ namespace Clustering.Objects
 
         public RawObject()
         {
-            Logger log = Logger.Instance;
+            var log = FileLogger.Instance;
             log.Log("Raw object was created");
         } 
         public RawObject(double [] data, RawSet set)
         {
             ObjData = data;
             RawSet = set;
-            Logger log = Logger.Instance;
+            var log = FileLogger.Instance;
             log.Log("Raw object was created");
         }
 

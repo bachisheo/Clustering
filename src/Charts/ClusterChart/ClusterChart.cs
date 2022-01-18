@@ -14,13 +14,14 @@ namespace Clustering.PlaneChart
         private bool _isNeedToClear = false;
         private int memCount = 0;
 
-        public PlaneChartMemento CreateMemento()
+        public ClusterChartMemento CreateMemento()
         {
-            return new PlaneChartMemento("Снимок №" + (++memCount).ToString() + " (" + _name + ")", _name, _points, _activeFigures);
+            return new ClusterChartMemento("Снимок №" + (++memCount).ToString() + " (" + _name + ")", _name, _points, _activeFigures);
         }
 
-        public void SetMemento(PlaneChartMemento memento)
+        public void SetMemento(ClusterChartMemento memento)
         {
+            
             _name = memento.Name;
             _points = memento.Points;
             _activeFigures = memento.ActiveFigures;
@@ -41,7 +42,7 @@ namespace Clustering.PlaneChart
                 _isNeedToClear = false;
             }
             br = new SolidBrush(Color.Black);
-            gr.DrawString(_name, new Font(FontFamily.GenericSansSerif, 14, FontStyle.Regular), br, 0, 0);
+            gr.DrawString(_name, new Font(FontFamily.GenericSansSerif, 10, FontStyle.Regular), br, 0, 0);
             foreach (var point in _points)
             {
                 br = new SolidBrush(point.Figure.color);

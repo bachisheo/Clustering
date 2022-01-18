@@ -35,10 +35,8 @@ namespace Clustering.Normalizers
             return o;
         }
 
-
         public CleanSet Normalize(RawSet data)
         {
-
             if (data.RawObjects.Count > 0)
             {
                 var obj = data.RawObjects[0];
@@ -55,7 +53,6 @@ namespace Clustering.Normalizers
                 if (minX < 0) maxX -= minX;
                 if (minY < 0) maxY -= minY;
             }
-
             CleanSet clean = new CleanSet();
             foreach (var rawObj in data.RawObjects)
             {
@@ -64,8 +61,6 @@ namespace Clustering.Normalizers
 
             clean.Name = "Нормализованные " + data.SourceName;
             return clean;
-
         }
-
     }
 }

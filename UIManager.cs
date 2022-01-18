@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows.Forms;
 using Clustering.Builders;
 using Clustering.Clusterizators;
-using Clustering.Clusterizators.Hierarchy;
 using Clustering.DataBase;
 using Clustering.Exceptions;
 using Clustering.Managers;
@@ -20,7 +20,7 @@ namespace Clustering
     {
         public ChartManager chart;
         private ProcessingManager _manager;
-        public List<ClusteringManager> Clusterizers {  get; private set; }
+        public List<AbstractClusteringManager> Clusterizers {  get; private set; }
         public List<RawSet> DataSetsList{  get; private set; }
         private MementoKeeper mk;
         private PlaneChart.ClusterChart _clusterChart;
@@ -46,19 +46,23 @@ namespace Clustering
         /// </summary>
         private void Load1()
         {
-            Clusterizers = new List<ClusteringManager> { new ClusteringManager(new KMeansAlglibAdapter(2)), new ClusteringManager(new HierarchyClusterizer()) };
+            Clusterizers = new List<AbstractClusteringManager> { new KMeansClusteringManager(2), new DBScanClusteringManager() };
             _manager = new ProcessingManager();
             //нормализатор для корректного отображения объектов на графике
             _manager.Normalizer = new AreaNormalizer(PlaneChartView.Width - 100, PlaneChartView.Height - 100);
             _clusterChart = new PlaneChart.ClusterChart();
             chart = new ChartManager(_clusterChart);
             mk = new MementoKeeper(_clusterChart);
+
             var events = new EventManager();
             events.Attach(chart);
-            events.Attach(this);
             events.Attach(mk);
+            events.Attach(this);
             _manager.Events.Add(events);
+
             _manager.Reader = new SQLiteReader();
+            var a = GUILogger.Instance as GUILogger;
+            a.TextBox = ResultTextBox;
             InitComboBox();
         }
 
@@ -72,14 +76,11 @@ namespace Clustering
 
         private void Сlusterize_Button_Click(object sender, EventArgs e)
         {
-            
             try
             {
-                if(_manager.Clusterizer.ToString() == 
                 _manager.Execute();
-                var tb = new TextBuilder();
-                tb.SetName("Результат кластеризации методом " + _manager.Clusterizer.ToString());
-                ResultTextBox.Text = tb.GetResult();
+                var res = _manager.Clusterizer.LastResult;
+                GUILogger.Instance.Log("Данные \"" + res.CleanSet.Name + "\" были кластеризованы методом \"" + _manager.Clusterizer.ToString() + "\"");
             }
             catch(ProcessingManagerException ex)
             {
@@ -99,15 +100,17 @@ namespace Clustering
       
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            _manager.Clusterizer = ClusterizerSetBox.SelectedItem as ClusteringManager;
+            _manager.Clusterizer = ClusterizerSetBox.SelectedItem as AbstractClusteringManager;
+            GUILogger.Instance.Log("Выбран метод кластеризации: "+ _manager.Clusterizer.ToString());
         }
 
         private void CleanSetNamesBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             _manager.DataRawSet = CleanSetNamesBox.SelectedItem as RawSet;
+            GUILogger.Instance.Log("Выбран набор данных: " + _manager.DataRawSet.SourceName);
         }
 
-        public void Update(EventType eventType, ClusteringResult result)
+        public void Update(ClusteringResult result)
         {
              ChartMementoBox.Items.Clear();
              foreach (var mem in mk.mems)
@@ -117,10 +120,27 @@ namespace Clustering
              Refresh();
         }
 
-        private void NormalizerBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void ChartMementoBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            _clusterChart.SetMemento(ChartMementoBox.SelectedItem as PlaneChartMemento);
+            var mem = ChartMementoBox.SelectedItem as ClusterChartMemento;
+            if (mem != null)
+            {
+                _clusterChart.SetMemento(mem);
+                GUILogger.Instance.Log("Загружен результат совершенной ранее кластеризации: " + mem.MementoName);
+            }
             Refresh();
+        }
+
+
+        private void Export_Button_Click(object sender, EventArgs e)
+        {
+            var tb = new TextBuilder();
+            tb.SetName("Результат кластеризации методом " + _manager.Clusterizer.ToString());
+            tb.BuildDataView(_manager.Clusterizer.LastResult);
+            var _sw = new StreamWriter("result.txt", true, System.Text.Encoding.UTF8);
+            _sw.Write(tb.GetResult());
+            _sw.Close();
+            GUILogger.Instance.Log("Результат кластеризации экспортирован в файл \"result.txt\"");
         }
     }
 }

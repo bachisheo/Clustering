@@ -3,7 +3,7 @@ using Clustering.Clusterizators;
 
 namespace Clustering
 {
-    public class ClusteringManager
+    public abstract class AbstractClusteringManager
     {
         public CleanSet CleanSet { get; set; }
         public ClusteringResult LastResult { get; protected set; }
@@ -13,18 +13,15 @@ namespace Clustering
         {
             if (_clusterizer == null)
                 return "null";
-            return _clusterizer.Name ;
+            return _clusterizer.ToString();
         }
 
-        public ClusteringManager(IClusterizer clusterizer)
-        {
-            _clusterizer = clusterizer;
-        }
+        protected abstract IClusterizer CreateClusterizer();
         public ClusteringResult Clusterize()
         {
             if (CleanSet == null)
             {
-                Logger.Instance.Log("Empty Dataset!");
+                FileLogger.Instance.Log("Empty Dataset!");
             }
             LastResult = _clusterizer.Clustering(CleanSet);
             LastResult.CleanSet = CleanSet;

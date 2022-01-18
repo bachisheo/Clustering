@@ -18,11 +18,11 @@ namespace Clustering.src.Observer
             _observers.Remove(observer);
         }
 
-        public void NotifyAll(EventType type, ClusteringResult result)
+        public void NotifyAll(ClusteringResult result)
         {
             foreach (var obs in _observers)
             {
-                obs.Update(type, result);
+                obs.Update(result);
             }
         }
     }

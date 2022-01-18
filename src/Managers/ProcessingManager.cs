@@ -12,7 +12,7 @@ namespace Clustering.Managers
     public class ProcessingManager
     {
         public List<EventManager> Events { set; get; }
-        public ClusteringManager Clusterizer { get; set; }
+        public AbstractClusteringManager Clusterizer { get; set; }
         public INormalizer Normalizer { get; set; }
         public IReader Reader { get; set; }
         public RawSet DataRawSet { get; set; }
@@ -33,7 +33,7 @@ namespace Clustering.Managers
                 throw new ProcessingManagerException("База данных не доступна!");
             return true;
         }
-        public ProcessingManager(ClusteringManager clusterizer, INormalizer normalizer, IReader reader)
+        public ProcessingManager(AbstractClusteringManager clusterizer, INormalizer normalizer, IReader reader)
         {
             Clusterizer = clusterizer;
             Normalizer = normalizer;
@@ -46,16 +46,9 @@ namespace Clustering.Managers
             var result = Clusterizer.Clusterize();
             foreach (var _event in Events)
             {
-                _event.NotifyAll(EventType.clustering, result);
+                _event.NotifyAll( result);
             }
             return result;
-        } 
-        public ClusteringResult Execute(String rawSetName)
-        {
-                CheckParams();
-                var rawSet = Reader.GetRawSetByName(rawSetName);
-                Clusterizer.CleanSet = Normalizer.Normalize(rawSet);
-                return Clusterizer.Clusterize();
-        } 
+        }
     }
 }
