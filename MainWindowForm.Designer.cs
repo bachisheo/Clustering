@@ -41,6 +41,8 @@ namespace Clustering
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // ClusteringResultPlotView
@@ -58,7 +60,7 @@ namespace Clustering
             // 
             // buttonClustering
             // 
-            this.buttonClustering.Location = new System.Drawing.Point(472, 38);
+            this.buttonClustering.Location = new System.Drawing.Point(650, 40);
             this.buttonClustering.Name = "buttonClustering";
             this.buttonClustering.Size = new System.Drawing.Size(168, 29);
             this.buttonClustering.TabIndex = 2;
@@ -119,7 +121,7 @@ namespace Clustering
             // NormalizerBox
             // 
             this.NormalizerBox.FormattingEnabled = true;
-            this.NormalizerBox.Location = new System.Drawing.Point(663, 41);
+            this.NormalizerBox.Location = new System.Drawing.Point(985, 91);
             this.NormalizerBox.Name = "NormalizerBox";
             this.NormalizerBox.Size = new System.Drawing.Size(260, 28);
             this.NormalizerBox.TabIndex = 8;
@@ -146,17 +148,35 @@ namespace Clustering
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(663, 18);
+            this.label3.Location = new System.Drawing.Point(985, 68);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(182, 20);
             this.label3.TabIndex = 12;
             this.label3.Text = "Предыдущие результаты";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(472, 40);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(164, 27);
+            this.textBox1.TabIndex = 13;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(472, 17);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(164, 20);
+            this.label4.TabIndex = 14;
+            this.label4.Text = "Количество кластеров";
             // 
             // MainWindowForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1522, 506);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -189,6 +209,8 @@ namespace Clustering
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label4;
     }
 }
 

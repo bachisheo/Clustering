@@ -14,13 +14,12 @@ namespace Clustering.Objects
             var clone = new CleanSet { CleanSetId = maxId++, Name = this.Name + "Copy" };
             foreach(var obj in CleanObjects)
             {
-                var cloneObj = obj.Clone();
-                cloneObj.CleanSet = this;
+                var cloneObj = new CleanObject(obj, this);
                 clone.CleanObjects.Add(cloneObj);
             }
             return clone;
-
         }
+
         public void Add(CleanObject obj)
         {
             CleanObjects.Add(obj);

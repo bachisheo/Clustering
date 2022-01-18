@@ -4,7 +4,7 @@ using Clustering.Objects;
 
 namespace Clustering.DataBase
 {
-    public interface IDBLoader
+    public interface IReader
     {
         public void AddSet(CleanSet set);
         public CleanSet GetSetByName(String name);

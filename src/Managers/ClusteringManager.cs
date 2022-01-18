@@ -1,29 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using Clustering.Charts;
-using Clustering.Objects;
+﻿using Clustering.Objects;
 using Clustering.Clusterizators;
-using Clustering.src.Charts;
 
 namespace Clustering
 {
-    public abstract class ClusteringManager
+    public class ClusteringManager
     {
         public CleanSet CleanSet { get; set; }
-        public IChart chart { get; protected set; }
         public ClusteringResult LastResult { get; protected set; }
-        protected IClusterizer clusterizer;
+        protected IClusterizer _clusterizer;
 
-        protected abstract IClusterizer CreateClusterizer();
-        protected abstract IChart CreateChart();
-
-        public string ClusterInfo => clusterizer.Name;
-
-        protected ClusteringManager()
+        public override string ToString()
         {
-            clusterizer = CreateClusterizer();
-            chart = CreateChart();
+            if (_clusterizer == null)
+                return "null";
+            return _clusterizer.Name ;
+        }
+
+        public ClusteringManager(IClusterizer clusterizer)
+        {
+            _clusterizer = clusterizer;
         }
         public ClusteringResult Clusterize()
         {
@@ -31,13 +26,11 @@ namespace Clustering
             {
                 Logger.Instance.Log("Empty Dataset!");
             }
-            LastResult = clusterizer.Clustering(CleanSet);
+            LastResult = _clusterizer.Clustering(CleanSet);
             LastResult.CleanSet = CleanSet;
-            LastResult.Clusterizer = clusterizer;
+            LastResult.Clusterizer = _clusterizer;
             LastResult.ResultName = CleanSet.Name;
             return LastResult;
         }
-
-        public void Draw(StreamWriter sw) => chart.Draw(LastResult, sw);
     }
 }

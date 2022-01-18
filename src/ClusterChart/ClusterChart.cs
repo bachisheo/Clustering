@@ -6,9 +6,8 @@ using Clustering.Charts;
 
 namespace Clustering.PlaneChart
 {
-    public class PlaneChart :IChartImplementation
+    public class ClusterChart :IChartImplementation
     {
-
         private string _name = "";
         private List<Point> _points = new List<Point>();
         public List<Figure> _activeFigures = new List<Figure>();
@@ -17,7 +16,7 @@ namespace Clustering.PlaneChart
 
         public PlaneChartMemento CreateMemento()
         {
-            return new PlaneChartMemento("Снимок " + ++memCount + " (" + _name + ")", _name, _points, _activeFigures);
+            return new PlaneChartMemento("Снимок №" + (++memCount).ToString() + " (" + _name + ")", _name, _points, _activeFigures);
         }
 
         public void SetMemento(PlaneChartMemento memento)
@@ -61,7 +60,6 @@ namespace Clustering.PlaneChart
                 }
             }
             br.Dispose();
-
         }
          
         public void SetPointType(Color color, Figure.FigureType type, int size)

@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
 using Clustering.Builders;
-using Clustering.Charts;
 using Clustering.Clusterizators;
 using Clustering.Clusterizators.Hierarchy;
 using Clustering.DataBase;
+using Clustering.Exceptions;
 using Clustering.Managers;
 using Clustering.Normalizers;
 using Clustering.Objects;
-using Clustering.src.Managers;
 using Clustering.src.Observer;
 
 namespace Clustering
@@ -18,14 +16,13 @@ namespace Clustering
 
     public partial class MainWindowForm : Form, IObserver
     {
-        
         public ChartManager chart;
-        public ProcessingManager manager;
+        public ProcessingManager _manager;
         public IState currentState;
         public List<ClusteringManager> Clusterizers {  get; private set; }
         public List<RawSet> DataSetsList{  get; private set; }
         private MementoKeeper mk;
-        private PlaneChart.PlaneChart planeChart;
+        private PlaneChart.ClusterChart _clusterChart;
         public void SetState(IState newState)
         {
             currentState = newState;
@@ -33,51 +30,40 @@ namespace Clustering
 
         private void InitComboBox()
         {
-            foreach (var clusterizer in Clusterizers)
-            {
-                ClusterizerSetBox.Items.Add(clusterizer.ClusterInfo);
-            }
+            ClusterizerSetBox.DataSource = Clusterizers;
             var db = new ClusteringContext();
-
             DataSetsList = new List<RawSet>();
             foreach (var set in db.RawSets)
             {
                 DataSetsList.Add(set);
-                CleanSetNamesBox.Items.Add(set.SourceName);
             }
+            CleanSetNamesBox.DataSource = DataSetsList;
         }
-        public MainWindowForm() 
+
+        private void Load1()
         {
-            InitializeComponent();
             currentState = new ClearState(this);
-            Clusterizers = new List<ClusteringManager> {new KMeansClusteringManager(2), new HierarchyManager()};
+            Clusterizers = new List<ClusteringManager> { new ClusteringManager(new KMeansAlglibAdapter(2)), new ClusteringManager(new HierarchyClusterizer()) };
+            _manager = new ProcessingManager();
+            _manager.Normalizer = new AreaNormalizer(PlaneChartView.Width - 100, PlaneChartView.Height - 100);
+            _clusterChart = new PlaneChart.ClusterChart();
+            chart = new ChartManager(_clusterChart);
 
-            manager = new ProcessingManager();
-            
-            manager.Normalizer = new AreaNormalizer(PlaneChartView.Width - 100, PlaneChartView.Height - 100);
-            planeChart = new PlaneChart.PlaneChart();
-            chart = new ChartManager(planeChart);
-
-            mk = new MementoKeeper(planeChart);
+            mk = new MementoKeeper(_clusterChart);
 
             var events = new EventManager();
             events.Attach(chart);
             events.Attach(this);
             events.Attach(mk);
-            manager.Events.Add(events);
-            manager.DbLoader = new SQLiteLoader();
-
+            _manager.Events.Add(events);
+            _manager.Reader = new SQLiteReader();
             InitComboBox();
 
-         
-            /*   manager = new ProcessingManager(new KMeansClusteringManager(2), 
-                   new AreaNormalizer(PlaneChartView.Width - 100, PlaneChartView.Height - 100),
-                   new SQLiteLoader());
-               chart = new ChartManager(new PlaneChart.PlaneChart());
-               
-               chart.CreateChart(manager.Execute("Данные со спутника"));
-            */
-
+        }
+        public MainWindowForm() 
+        {
+            InitializeComponent();
+            Load1();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -87,11 +73,17 @@ namespace Clustering
 
         private void buttonClustering_Click(object sender, EventArgs e)
         {
-            manager.Execute();
+            try
+            {
+                _manager.Execute();
+            }
+            catch(ProcessingManagerException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
             var tb = new TextBuilder();
-            tb.SetName("Результат кластеризации методом к-средних");
+            tb.SetName("Результат кластеризации методом " + _manager.Clusterizer.ToString());
             ResultTextBox.Text = tb.GetResult();
-
         }
 
         private void buttonDraw_Click(object sender, EventArgs e)
@@ -103,20 +95,15 @@ namespace Clustering
         {
            chart.Draw(e.Graphics);
         }
-        public ClusteringManager GetClusterizer(string clusterizerName)
-        {
-            return Clusterizers.Find((x) => x.ClusterInfo == clusterizerName);
-
-        }
+      
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            currentState.SetClusterizer(GetClusterizer(ClusterizerSetBox.SelectedItem.ToString()));
-          
+            _manager.Clusterizer = ClusterizerSetBox.SelectedItem as ClusteringManager;
         }
 
         private void CleanSetNamesBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            currentState.SetData(manager.DbLoader.GetRawSetByName(CleanSetNamesBox.SelectedItem.ToString()));
+            _manager.DataRawSet = CleanSetNamesBox.SelectedItem as RawSet;
         }
 
         public void Update(EventType eventType, ClusteringResult result)
@@ -127,12 +114,11 @@ namespace Clustering
                 NormalizerBox.Items.Add(mem.MementoName);
             }
             Refresh();
-            
         }
 
         private void NormalizerBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            planeChart.SetMemento(mk.mems.Find((x) => x.MementoName == NormalizerBox.SelectedItem.ToString()));
+            _clusterChart.SetMemento(mk.mems.Find((x) => x.MementoName == NormalizerBox.SelectedItem.ToString()));
             Refresh();
         }
 

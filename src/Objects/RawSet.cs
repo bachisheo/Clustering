@@ -12,5 +12,9 @@ namespace Clustering.Objects
             RawObjects.Add(obj);
         }
 
+        public override string ToString()
+        {
+            return SourceName;
+        }
     }
 }

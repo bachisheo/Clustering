@@ -7,37 +7,35 @@ namespace Clustering.Managers
 {
     public class ChartManager : IObserver
     {
-        public IChartImplementation Chart { get; }
+        public IChartImplementation Impl { get; }
 
 
         public void Update(EventType eventType, ClusteringResult result)
         {
-
             CreateChart(result);
         }
         public void Draw(Graphics gr)
         {
-            Chart.Draw(gr);
+            Impl.Draw(gr);
             
         }
 
         public ChartManager(IChartImplementation impl)
         {
-            Chart = impl;
+            Impl = impl;
         }
         public void CreateChart(ClusteringResult result)
         {
-            Chart.Reset();
-            Chart.SetName(result.ResultName);
-
-            Figure.FigureType[] figures = new[] { Figure.FigureType.circle, Figure.FigureType.rectangle };
-            Color[] colors = new[] { Color.BlueViolet, Color.Blue, Color.BlueViolet };
+            Impl.Reset();
+            Impl.SetName(result.ResultName);
+            Figure.FigureType[] figures = new[] { Figure.FigureType.circle, Figure.FigureType.rectangle, Figure.FigureType.diamond, Figure.FigureType.triangle };
+            Color[] colors = new[] { Color.BlueViolet, Color.Blue, Color.Brown, Color.DarkGreen, Color.Yellow };
             for (int i = 0; i < result.Clusters.Count; i++)
             {
-                Chart.SetPointType(colors[i % colors.Length], figures[i % figures.Length], 20);
+                Impl.SetPointType(colors[i % colors.Length], figures[i % figures.Length], 20);
                 foreach (var obj in result.Clusters[i].CleanObjects)
                 {
-                    Chart.SetPoint((float)obj.ObjData[0], (float)obj.ObjData[1]);
+                    Impl.SetPoint((float)obj.ObjData[0], (float)obj.ObjData[1]);
                 }
             }
         }

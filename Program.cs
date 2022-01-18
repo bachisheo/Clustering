@@ -2,20 +2,15 @@ using System;
 using System.IO;
 using System.Windows.Forms;
 using Clustering.Builders;
+using Clustering.Clusterizators;
 using Clustering.DataBase;
 using Clustering.Managers;
 using Clustering.Normalizers;
-using Clustering.Objects;
-using Clustering.src.Managers;
 
 namespace Clustering
 {
     static class Program
     {
-
-        /// <summary>
-        ///  The main entry point for the application.
-        /// </summary>
         [STAThread]
         static void RunForms()
         {
@@ -34,12 +29,12 @@ namespace Clustering
                new[] { 2, 2.3 },
                new[] { 2.3, 1.3 }
            };
-            var manager = new ProcessingManager(new KMeansClusteringManager(2), new DirectNormalizer(), new SQLiteLoader());
-            var set = manager.ConvertData(data);
+            var manager = new ProcessingManager(new ClusteringManager(new KMeansAlglibAdapter(2)), new DirectNormalizer(), new SQLiteReader());
+     
 
              TextBuilder tb = new TextBuilder();
             StreamWriter sw = new StreamWriter("result.txt");
-            tb.BuildDataView(manager.Execute("Данные о матче"));
+           // tb.BuildDataView(manager.Execute("Данные о матче"));
             sw.Write(tb.GetResult());
             sw.Close();
         }

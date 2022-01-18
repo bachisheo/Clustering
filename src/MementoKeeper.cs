@@ -5,10 +5,10 @@ namespace Clustering
 {
     public class MementoKeeper : IObserver
     {
-        private PlaneChart.PlaneChart _chart;
+        private PlaneChart.ClusterChart _chart;
         public List<PlaneChartMemento> mems;
 
-        public MementoKeeper(PlaneChart.PlaneChart chart)
+        public MementoKeeper(PlaneChart.ClusterChart chart)
         {
             _chart = chart;
             mems = new List<PlaneChartMemento>();

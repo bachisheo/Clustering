@@ -16,6 +16,10 @@ namespace Clustering.Clusterizators
             set => _name = value;
         }
 
+        public KMeansAlglibAdapter(int K)
+        {
+            ClusterCount = K;
+        }
         public ClusteringResult Clustering(CleanSet dataSet)
        {
            var objects = dataSet.CleanObjects;

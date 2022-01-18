@@ -22,10 +22,25 @@ namespace Clustering.Objects
         {
         }
 
-        public CleanObject(RawObject rawObject)
+        private CleanObject(RawObject rawObject)
         {
             ObjData = rawObject.ObjData;
             RawObject = rawObject;
+        }
+        public CleanObject(RawObject obj, CleanSet set)
+            : this(obj)
+        {
+            CleanSet = set;
+        }
+        private CleanObject(CleanObject cleanObject)
+        {
+            ObjData = cleanObject.ObjData;
+            RawObject = cleanObject.RawObject;
+        }
+        public CleanObject (CleanObject obj, CleanSet set)
+        :this(obj)
+        {
+            CleanSet = set;
         }
 
     }

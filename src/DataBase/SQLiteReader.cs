@@ -7,11 +7,11 @@ using Clustering.Objects;
 
 namespace Clustering.DataBase
 {
-    public class SQLiteLoader : IDBLoader
+    public class SQLiteReader : IReader
     {
         private ClusteringContext _context;
 
-        public SQLiteLoader()
+        public SQLiteReader()
         {
             _context = new ClusteringContext();
         }

@@ -16,15 +16,19 @@ namespace Clustering
         }
         public void Clusterize()
         {
-            MessageBox.Show(_message, _title);
+            if (_mainform._manager.CheckParams())
+            {
+                _mainform.SetState(new InitializedState(_mainform));
+                _mainform.currentState.Clusterize();
+                return;
+            }
         }
 
         public void Clear()
         {
-            _mainform.manager = new ProcessingManager();
+            _mainform._manager = new ProcessingManager();
         }
 
-    
         public void DrawResult()
         {
             MessageBox.Show(_message, _title);
@@ -32,16 +36,12 @@ namespace Clustering
 
         public void SetClusterizer(ClusteringManager manager)
         {
-            _mainform.manager.Clusterizer = manager;
-            if(_mainform.manager.IsAllParamsInitialized())
-                _mainform.SetState(new InitializedState(_mainform));
+            _mainform._manager.Clusterizer = manager;
         }
 
         public void SetData(RawSet dataSet)
         {
-            _mainform.manager.DataRawSet = dataSet;
-            if (_mainform.manager.IsAllParamsInitialized())
-                _mainform.SetState(new InitializedState(_mainform));
+            _mainform._manager.DataRawSet = dataSet;
         }
     }
 }

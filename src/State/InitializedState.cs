@@ -14,7 +14,7 @@ namespace Clustering
         }
         public void Clusterize()
         {
-            _mainform.manager.Execute();
+            _mainform._manager.Execute();
         }
 
         public void Clear()
@@ -30,12 +30,12 @@ namespace Clustering
 
         public void SetClusterizer(ClusteringManager manager)
         {
-            _mainform.manager.Clusterizer = manager;
+            _mainform._manager.Clusterizer = manager;
         }
 
         public void SetData(RawSet dataSet)
         {
-            _mainform.manager.DataRawSet = dataSet;
+            _mainform._manager.DataRawSet = dataSet;
         }
     }
 }

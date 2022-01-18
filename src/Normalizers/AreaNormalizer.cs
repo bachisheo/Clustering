@@ -13,7 +13,7 @@ namespace Clustering.Normalizers
             _width = Width;
             _height = Height;
         }
-        public CleanObject Normalize(RawObject obj)
+        public CleanObject Normalize(RawObject obj, CleanSet newSet)
         {
             var data = obj.ObjData;
 
@@ -31,8 +31,10 @@ namespace Clustering.Normalizers
             data[1] = (data[1] * _height) / maxY ;
             var o = new CleanObject();
             o.ObjData = data;
+            o.CleanSet = newSet;
             return o;
         }
+
 
         public CleanSet Normalize(RawSet data)
         {
@@ -57,7 +59,7 @@ namespace Clustering.Normalizers
             CleanSet clean = new CleanSet();
             foreach (var rawObj in data.RawObjects)
             {
-                clean.CleanObjects.Add(Normalize(rawObj));
+                clean.CleanObjects.Add(Normalize(rawObj, clean));
             }
 
             clean.Name = "Нормализованные " + data.SourceName;

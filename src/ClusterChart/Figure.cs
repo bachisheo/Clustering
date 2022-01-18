@@ -7,7 +7,9 @@ namespace Clustering.PlaneChart
         public enum FigureType
         {
             rectangle,
-            circle
+            circle, 
+            diamond, 
+            triangle
         };
         public Color color;
         public int size;
